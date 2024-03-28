@@ -1,0 +1,69 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+.nav-bar {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 60px;
+  background-color: rgba(0, 0, 0, 0.584);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 5;
+  backdrop-filter: blur(5px);
+}
+
+.moviedb-logo {
+  width: 154px;
+  height: 20px;
+  padding: 0 15px;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-bar input {
+  width: 25rem;
+  height: 30px;
+  border-radius: 15px;
+  border: none;
+  padding-left: 10px;
+}
+
+.nav-bar button {
+  padding: 0 20px;
+  height: 30px;
+  border-radius: 20px;
+  border: none;
+  margin-left: 10px;
+}
+
+.list {
+  display: flex;
+  flex-direction: row;
+  color: white;
+  gap: 15px;
+}
+
+.list li {
+  list-style-type: none;
+}
+
+.list li a {
+  text-decoration: none;
+  color: white;
+}
+
+button,
+a :hover {
+  cursor: pointer;
+}

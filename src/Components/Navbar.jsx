@@ -1,4 +1,5 @@
 import { useState } from "react";
+import styles from "Navbar.module.css";
 
 const token = `${process.env.REACT_APP_TOKEN}`;
 
@@ -27,9 +28,9 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="nav-bar">
+    <nav className={styles["nav-bar"]}>
       <img
-        className="moviedb-logo"
+        className={styles["moviedb-logo"]}
         src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_short-8e7b30f73a4020692ccca9c88bafe5dcb6f8a62a4c6bc55cd9ba82bb2cd95f6c.svg"
         alt="logo"
       />
@@ -42,7 +43,7 @@ export default function Navbar() {
         />
         <button type="submit">Sumbit</button>
       </form>
-      <ul className="list">
+      <ul className={styles.list}>
         <li>
           <a href="#">Movies</a>
         </li>

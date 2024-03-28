@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 const token = `${process.env.REACT_APP_TOKEN}`;
 
 export default function MoviePage() {
   const [data, setData] = useState({});
   const [config, setConfig] = useState({});
+  const { id } = useParams();
 
   useEffect(() => {
     getMovieById();
   }, []);
+  // console.log(id);
 
   async function getMovieById() {
     try {
@@ -23,7 +26,7 @@ export default function MoviePage() {
       const apiConfig = await response.json();
 
       const res = await fetch(
-        `https://api.themoviedb.org/3/movie/359410?append_to_response=credits,videos`,
+        `https://api.themoviedb.org/3/movie/${id}?append_to_response=credits,videos`,
         {
           headers: {
             Authorization: token,
@@ -72,15 +75,21 @@ export default function MoviePage() {
           <h2>{data.title}</h2>
           {data.genres &&
             data.genres.map((genre) => {
-              return <span key={genre.id}>{genre.name}</span>;
+              return (
+                <ul>
+                  <li key={genre.id}>{genre.name}</li>
+                </ul>
+              );
             })}
-          <hr />
+          <hr style={{ width: "300px" }} />
           <p>{data.tagline}</p>
           <p>{data.overview}</p>
           <div style={{ display: "flex", gap: "10px" }}>
             <span>Status: {data.status}</span>
             <span>Release Date: {data.release_date}</span>
-            <span>Runtime: {data.runtime}</span>
+            <span>
+              Runtime: {Math.floor(data.runtime / 60)}h{data.runtime % 60}m
+            </span>
           </div>
 
           {data.credits &&
@@ -89,18 +98,6 @@ export default function MoviePage() {
                 <div>
                   <span>
                     {ppl.job === "Director" ? `${ppl.job}: ${ppl.name}` : null}
-                  </span>
-                </div>
-              );
-            })}
-          {data.credits &&
-            data.credits.crew.map((ppl) => {
-              return (
-                <div>
-                  <span>
-                    {ppl.job === "Original Film Writer" ? (
-                      <li>{`Writer: ${ppl.name}`}</li>
-                    ) : null}
                   </span>
                 </div>
               );

@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import MoviePage from "./MoviePage";
+import styles from "./Trending.module.css";
 import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const token = `${process.env.REACT_APP_TOKEN}`;
 
-export default function Trending() {
+export default function Trending({ setId }) {
   const [result, setResult] = useState([]);
   const [onDayFocus, setOnDayFocus] = useState(true);
   const [onWeekFocus, setOnWeekFocus] = useState(false);
@@ -13,10 +15,6 @@ export default function Trending() {
   const [movieActive, setMovieActive] = useState(true);
   const [loading, setLoading] = useState(false);
   const [config, setConfig] = useState({});
-  const [movieid, setMovieid] = useState(0);
-  const [tvid, setTvid] = useState(0);
-
-  const movieLink = `/movie/${movieid}`;
 
   useEffect(() => {
     trendingMovieDay();
@@ -52,6 +50,7 @@ export default function Trending() {
       });
 
       setResult(data.results);
+      console.log(result);
     } catch (error) {
       console.log("Error fetching trending movies of day data:", error);
     } finally {
@@ -174,53 +173,30 @@ export default function Trending() {
     e.target.style.transition = ".5s all ease-in-out";
   }
 
-  function handleMovieClick(e) {
-    const id = e.target.getAttribute("m-id");
-    console.log(id);
-    setMovieid(id);
-  }
+  // function handleMovieClick(e) {
+  //   const id = e.target.getAttribute("m-id");
+  //   console.log(id);
+  //   // setId(id);
+  // }
 
-  var settings = {
+  const settings = {
+    arrows: true,
     dots: true,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 4,
-    initialSlide: 0,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-          infinite: true,
-          dots: true,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 2,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-    ],
+    infinite: true,
+    speed: 2000,
+    slidesToShow: 5,
+    slidesToScroll: 5,
+    autoplay: true,
+    autoplaySpeed: 5000,
+    pauseOnHover: true,
   };
 
   return (
-    <div className="trending">
-      <div className="trending-header">
+    <div className={styles.trending}>
+      <div className={styles["trending-header"]}>
         <h2>Trending</h2>
         <button
-          className="movie-btn"
+          className={styles["movie-btn"]}
           onClick={handleMoviesBtnClick}
           style={{
             backgroundColor: movieActive ? "red" : "black",
@@ -230,7 +206,7 @@ export default function Trending() {
           Movies
         </button>
         <button
-          className="tv-btn"
+          className={styles["tv-btn"]}
           onClick={handleTvClick}
           style={{
             backgroundColor: tvActive ? "red" : "black",
@@ -240,8 +216,11 @@ export default function Trending() {
           TV Shows
         </button>
       </div>
-      <div className="wrapper">
-        <div className="toggle-tab">
+      <div className={styles.wrapper} style={{ border: "2px solid yellow" }}>
+        {result.map((el) => {
+          return <div></div>;
+        })}
+        <div className={styles["toggle-tab"]}>
           <button
             onClick={handleDayClick}
             onFocus={handleDayFocus}
@@ -251,7 +230,7 @@ export default function Trending() {
               backgroundColor: onDayFocus ? "red" : "black",
               boxShadow: onDayFocus ? "2px 2px 10px black inset" : "none",
             }}
-            className="day"
+            className={styles.day}
           >
             Day
           </button>
@@ -264,75 +243,71 @@ export default function Trending() {
               backgroundColor: onWeekFocus ? "red" : "black",
               boxShadow: onWeekFocus ? "2px 2px 10px black inset" : "none",
             }}
-            className="week"
+            className={styles.week}
           >
             Week
           </button>
         </div>
-        {/* <Slider {...settings}> */}
-        <div className="trending-movies">
-          {loading && <p>Loading...</p>}
-          {result.map((el) => {
-            if (el.media_type === "movie") {
-              return (
-                <div key={el.id} className="movie">
-                  <Link to={movieLink}>
+
+        <div className={styles["trending-movies"]}>
+          <Slider {...settings}>
+            {loading && <p>Loading...</p>}
+            {result.map((el) => {
+              if (el.media_type === "movie") {
+                return (
+                  <div key={el.id} className={styles.movie}>
+                    <Link to={`/movie/${el.id}`}>
+                      <img
+                        className={styles.movieImg}
+                        src={`${config.baseURL}${config.posterSize}${el.poster_path}`}
+                        alt={el.title}
+                        m-id={el.id}
+                        // onClick={handleMovieClick}
+                      />
+                    </Link>
+                    <p
+                      movieid={el.id}
+                      // onClick={handleMovieClick}
+                      style={{
+                        cursor: "pointer",
+                        height: "auto",
+                        textAlign: "center",
+                      }}
+                    >
+                      {el.title}
+                    </p>
+                    <p style={{ color: "gray", fontSize: "12px" }}>
+                      {el.release_date}
+                    </p>
+                  </div>
+                );
+              } else {
+                return (
+                  <div key={el.id} className={styles["tv-show"]}>
                     <img
-                      className="movieImg"
+                      className={styles.showImg}
                       src={`${config.baseURL}${config.posterSize}${el.poster_path}`}
-                      alt={el.title}
-                      m-id={el.id}
-                      onClick={handleMovieClick}
+                      alt={el.name}
+                      t-id={el.id}
                     />
-                  </Link>
-                  <p>{Math.ceil(el.vote_average * 10)}%</p>
-                  <p
-                    movieid={el.id}
-                    onClick={handleMovieClick}
-                    style={{
-                      width: "150px",
-                      textOverflow: "ellipsis",
-                      overflow: "hidden",
-                      whiteSpace: "nowrap",
-                      cursor: "pointer",
-                    }}
-                  >
-                    {el.title}
-                  </p>
-                  <p style={{ color: "gray", fontSize: "12px" }}>
-                    {el.release_date}
-                  </p>
-                </div>
-              );
-            } else {
-              return (
-                <div key={el.id} className="tv-show">
-                  <img
-                    className="showImg"
-                    src={`${config.baseURL}${config.posterSize}${el.poster_path}`}
-                    alt={el.name}
-                    t-id={el.id}
-                  />
-                  <p>{Math.ceil(el.vote_average * 10)}%</p>
-                  <p
-                    style={{
-                      width: "150px",
-                      textOverflow: "ellipsis",
-                      overflow: "hidden",
-                      whiteSpace: "nowrap",
-                    }}
-                  >
-                    {el.name}
-                  </p>
-                  <p style={{ color: "gray", fontSize: "12px" }}>
-                    {el.first_air_date ? el.first_air_date : ""}
-                  </p>
-                </div>
-              );
-            }
-          })}
+                    <p
+                      style={{
+                        cursor: "pointer",
+                        height: "auto",
+                        textAlign: "center",
+                      }}
+                    >
+                      {el.name}
+                    </p>
+                    <p style={{ color: "gray", fontSize: "12px" }}>
+                      {el.first_air_date ? el.first_air_date : ""}
+                    </p>
+                  </div>
+                );
+              }
+            })}
+          </Slider>
         </div>
-        {/* </Slider> */}
       </div>
     </div>
   );
