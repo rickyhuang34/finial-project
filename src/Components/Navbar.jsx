@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+const token = `${process.env.REACT_APP_TOKEN}`;
+
 export default function Navbar() {
   const [userInput, setUserInput] = useState("");
 
@@ -14,8 +16,7 @@ export default function Navbar() {
       {
         headers: {
           accept: "application/json",
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2ZGYwYTQzMTc5NzE0NGM3MGY3YzlhODdlMGNiZGNmOCIsInN1YiI6IjY2MDBmZjAxNjA2MjBhMDE2MzI5YTg2MiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ._frgDuJlZ5keV1_v4IYi5rUfd7DqXMpl8Z09VslttX4",
+          Authorization: token,
         },
       }
     );
