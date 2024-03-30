@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { Skeleton } from "@mui/material";
 
 const token = `${process.env.REACT_APP_TOKEN}`;
 
@@ -7,6 +8,7 @@ export default function MoviePage() {
   const [data, setData] = useState({});
   const [config, setConfig] = useState({});
   const { id } = useParams();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     getMovieById();
@@ -14,6 +16,7 @@ export default function MoviePage() {
   // console.log(id);
 
   async function getMovieById() {
+    setLoading(true);
     try {
       const response = await fetch(
         "https://api.themoviedb.org/3/configuration",
@@ -45,10 +48,21 @@ export default function MoviePage() {
       // console.log(apiConfig.images);
     } catch (error) {
       console.log("Get movie error", error);
+    } finally {
+      setLoading(false);
     }
   }
-  console.log(data);
-  return (
+  // console.log(data);
+  return loading ? (
+    <>
+      <Skeleton
+        variant="rounded"
+        width={400}
+        height={200}
+        sx={{ bgcolor: "grey.900" }}
+      />
+    </>
+  ) : (
     <div
       style={{
         background: `url(${config.baseURL}${config.backdropSize}${data.backdrop_path}) no-repeat`,
@@ -75,11 +89,7 @@ export default function MoviePage() {
           <h2>{data.title}</h2>
           {data.genres &&
             data.genres.map((genre) => {
-              return (
-                <ul>
-                  <li key={genre.id}>{genre.name}</li>
-                </ul>
-              );
+              return <span key={genre.id}>{genre.name}</span>;
             })}
           <hr style={{ width: "300px" }} />
           <p>{data.tagline}</p>

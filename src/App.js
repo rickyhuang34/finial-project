@@ -1,63 +1,25 @@
-import { Link, Route, Routes } from "react-router-dom";
-import { useState } from "react";
+import { Route, Routes } from "react-router-dom";
 import Home from "./Components/Home.jsx";
+import MovieDiscover from "./Components/MovieDiscover.jsx";
 import MoviePage from "./Components/MoviePage.jsx";
-
-const token = `${process.env.REACT_APP_TOKEN}`;
+import ShowDiscover from "./Components/ShowDiscover.jsx";
+import ShowPage from "./Components/ShowPage.jsx";
+import Navbar from "./Components/Navbar.jsx";
 
 function App() {
-  const [userInput, setUserInput] = useState("");
-
-  function handleChange(e) {
-    setUserInput(e.target.value);
-  }
-
-  async function handleSubmit(e) {
-    e.preventDefault();
-    const res = await fetch(
-      `https://api.themoviedb.org/3/search/multi?query=${userInput}&language=en-US&page=1`,
-      {
-        headers: {
-          Authorization: token,
-        },
-      }
-    );
-    const data = await res.json();
-    console.log(data);
-
-    setUserInput("");
-  }
   return (
     <>
-      <nav className="nav-bar">
-        <Link to="/">
-          <img
-            className="moviedb-logo"
-            src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_short-8e7b30f73a4020692ccca9c88bafe5dcb6f8a62a4c6bc55cd9ba82bb2cd95f6c.svg"
-            alt="logo"
-          />
-        </Link>
-        <form onSubmit={handleSubmit}>
-          <input
-            placeholder="Search for a movie, tv show, person..."
-            onChange={handleChange}
-            vlaue={userInput}
-            type="text"
-          />
-          <button type="submit">Sumbit</button>
-        </form>
-        <ul className="list">
-          <li>
-            <Link to="/movie">Movies</Link>
-          </li>
-          <li>
-            <Link to="/">TV Shows</Link>
-          </li>
-        </ul>
-      </nav>
+      <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/movie/:id" element={<MoviePage />} />
+        <Route path="/movies">
+          <Route index element={<MovieDiscover />} />
+          <Route path=":id" element={<MoviePage />} />
+        </Route>
+        <Route path="/shows">
+          <Route index element={<ShowDiscover />} />
+          <Route path=":id" element={<ShowPage />} />
+        </Route>
       </Routes>
     </>
   );

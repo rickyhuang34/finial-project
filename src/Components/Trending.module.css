@@ -6,25 +6,28 @@
 }
 
 body {
-  background-color: #052044;
+  background-color: black; /*#052044*/
   color: white;
 }
 
-.trending {
+a {
+  width: 100px;
+}
+/* .trending {
   margin: 15px 50px;
   height: 350px;
 }
 
-.trending-header {
+.trendingHeader {
   display: flex;
   justify-content: flex-start;
   align-items: center;
   gap: 20px;
-  /* width: 300px; */
+  width: 500px;
 }
 
-.movie-btn,
-.tv-btn {
+.movieBtn,
+.tvBtn {
   padding: 20px;
   color: white;
   width: 300px;
@@ -34,7 +37,6 @@ body {
 }
 
 .toggle-tab {
-  /* position: absolute; */
   background-color: black;
   text-align: center;
   display: flex;
@@ -68,11 +70,6 @@ body {
 }
 
 .trending-movies {
-  /* display: flex; */
-  /* justify-content: center;
-  align-items: flex-start; */
-  /* overflow-x: auto;
-  overflow-y: hidden; */
   background-color: rgba(80, 80, 80, 0.5);
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
@@ -80,6 +77,7 @@ body {
   height: 300px;
   padding: 10px;
   margin: 0 auto;
+  display: flex;
 }
 
 .wrapper {
@@ -112,9 +110,9 @@ body {
 
 .slick-slider {
   margin: 0px auto;
-  width: 100%;
+  width: 500px;
+  background-color: aqua;
   height: 300px;
-  /* background-color: rgb(61, 59, 59); */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -122,15 +120,12 @@ body {
 }
 
 .slick-slider div {
-  /* background-color: black; */
   display: flex;
   justify-content: space-around;
   align-items: flex-start;
-  /* margin-right: 10px; */
-}
-
+} */
+/*
 button.slick-arrow.slick-next::before {
-  /* border: red 2px solid; */
   font-size: 40px;
   position: relative;
   right: 20px;
@@ -138,16 +133,11 @@ button.slick-arrow.slick-next::before {
 }
 
 button.slick-arrow.slick-prev::before {
-  /* border: red 2px solid; */
   font-size: 40px;
   position: relative;
   left: 0px;
   bottom: 30px;
 }
-
-/* .movie p {
-  margin: 5px 0;
-} */
 
 .slick-dots {
   display: flex;
@@ -167,15 +157,4 @@ button.slick-arrow.slick-prev::before {
   opacity: 1;
   font-size: 14px;
 }
-
-@media (max-width: 768px) {
-  .movie {
-    width: 150px;
-  }
-}
-
-@media (max-width: 576px) {
-  .movie {
-    width: 100px;
-  }
-}
+*/

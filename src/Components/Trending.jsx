@@ -47,10 +47,10 @@ export default function Trending({ setId }) {
       setConfig({
         baseURL: result.images.secure_base_url,
         posterSize: result.images.still_sizes[2],
+        backdropSize: result.images.backdrop_sizes[3],
       });
 
       setResult(data.results);
-      console.log(result);
     } catch (error) {
       console.log("Error fetching trending movies of day data:", error);
     } finally {
@@ -173,30 +173,25 @@ export default function Trending({ setId }) {
     e.target.style.transition = ".5s all ease-in-out";
   }
 
-  // function handleMovieClick(e) {
-  //   const id = e.target.getAttribute("m-id");
-  //   console.log(id);
-  //   // setId(id);
-  // }
-
   const settings = {
     arrows: true,
     dots: true,
     infinite: true,
     speed: 2000,
-    slidesToShow: 5,
-    slidesToScroll: 5,
+    slidesToShow: 2,
+    slidesToScroll: 2,
     autoplay: true,
     autoplaySpeed: 5000,
     pauseOnHover: true,
+    // variableWidth: true,
   };
 
   return (
     <div className={styles.trending}>
-      <div className={styles["trending-header"]}>
+      <div className={styles.trendingHeader}>
         <h2>Trending</h2>
         <button
-          className={styles["movie-btn"]}
+          className={styles.movieBtn}
           onClick={handleMoviesBtnClick}
           style={{
             backgroundColor: movieActive ? "red" : "black",
@@ -206,7 +201,7 @@ export default function Trending({ setId }) {
           Movies
         </button>
         <button
-          className={styles["tv-btn"]}
+          className={styles.tvBtn}
           onClick={handleTvClick}
           style={{
             backgroundColor: tvActive ? "red" : "black",
@@ -217,9 +212,6 @@ export default function Trending({ setId }) {
         </button>
       </div>
       <div className={styles.wrapper} style={{ border: "2px solid yellow" }}>
-        {result.map((el) => {
-          return <div></div>;
-        })}
         <div className={styles["toggle-tab"]}>
           <button
             onClick={handleDayClick}
@@ -248,66 +240,39 @@ export default function Trending({ setId }) {
             Week
           </button>
         </div>
-
-        <div className={styles["trending-movies"]}>
-          <Slider {...settings}>
-            {loading && <p>Loading...</p>}
-            {result.map((el) => {
-              if (el.media_type === "movie") {
-                return (
-                  <div key={el.id} className={styles.movie}>
-                    <Link to={`/movie/${el.id}`}>
-                      <img
-                        className={styles.movieImg}
-                        src={`${config.baseURL}${config.posterSize}${el.poster_path}`}
-                        alt={el.title}
-                        m-id={el.id}
-                        // onClick={handleMovieClick}
-                      />
-                    </Link>
-                    <p
-                      movieid={el.id}
-                      // onClick={handleMovieClick}
-                      style={{
-                        cursor: "pointer",
-                        height: "auto",
-                        textAlign: "center",
-                      }}
-                    >
-                      {el.title}
-                    </p>
-                    <p style={{ color: "gray", fontSize: "12px" }}>
-                      {el.release_date}
-                    </p>
-                  </div>
-                );
-              } else {
-                return (
-                  <div key={el.id} className={styles["tv-show"]}>
-                    <img
-                      className={styles.showImg}
-                      src={`${config.baseURL}${config.posterSize}${el.poster_path}`}
-                      alt={el.name}
-                      t-id={el.id}
-                    />
-                    <p
-                      style={{
-                        cursor: "pointer",
-                        height: "auto",
-                        textAlign: "center",
-                      }}
-                    >
-                      {el.name}
-                    </p>
-                    <p style={{ color: "gray", fontSize: "12px" }}>
-                      {el.first_air_date ? el.first_air_date : ""}
-                    </p>
-                  </div>
-                );
-              }
-            })}
-          </Slider>
-        </div>
+        {/* else
+        {
+          <div key={el.id} className={styles["tv-show"]}>
+            <img
+              className={styles.showImg}
+              src={`${config.baseURL}${config.posterSize}${el.poster_path}`}
+              alt={el.name}
+              t-id={el.id}
+            />
+            <p
+              style={{
+                cursor: "pointer",
+                height: "auto",
+                textAlign: "center",
+              }}
+            >
+              {el.name}
+            </p>
+            <p style={{ color: "gray", fontSize: "12px" }}>
+              {el.first_air_date ? el.first_air_date : ""}
+            </p>
+          </div>
+        } */}
+        <div
+          className={styles["trending-movies"]}
+          style={{
+            width: "100%",
+            height: "490px",
+            overflowY: "hidden",
+            overflowX: "hidden",
+            display: "flex",
+          }}
+        ></div>
       </div>
     </div>
   );
