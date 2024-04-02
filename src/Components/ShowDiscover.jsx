@@ -41,7 +41,7 @@ export default function ShowDiscover() {
       });
 
       setData(result);
-      console.log(result);
+      // console.log(result);
     } catch (error) {
       console.log(error);
     } finally {
@@ -90,7 +90,11 @@ export default function ShowDiscover() {
         {data.results &&
           data.results.map((el) => {
             return (
-              <Link to={`/shows/${el.id}`} style={{ textDecoration: "none" }}>
+              <Link
+                to={`/shows/${el.id}`}
+                style={{ textDecoration: "none" }}
+                key={el.id}
+              >
                 <div key={el.id} className={styles.showContainer}>
                   <img
                     src={`${config.baseURL}${config.posterSize}${el.poster_path}`}

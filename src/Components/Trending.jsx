@@ -4,6 +4,10 @@ import styles from "./Trending.module.css";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import "./Slick.css";
+import { Skeleton } from "@mui/material";
+import movieColorIcon from "./Images/movieColorIcon.png";
+import tvColorIcon from "./Images/tvColorIcon.png";
 
 const token = `${process.env.REACT_APP_TOKEN}`;
 
@@ -59,6 +63,7 @@ export default function Trending({ setId }) {
   }
 
   async function trendingMovieWeek() {
+    setLoading(true);
     try {
       const res = await fetch(
         `https://api.themoviedb.org/3/trending/movie/week`,
@@ -97,6 +102,7 @@ export default function Trending({ setId }) {
   }
 
   async function trendingTvWeek() {
+    setLoading(true);
     try {
       const res = await fetch(`https://api.themoviedb.org/3/trending/tv/week`, {
         headers: {
@@ -164,54 +170,105 @@ export default function Trending({ setId }) {
     e.target.style.transform = "scale(1.05, 1.05)";
     e.target.style.zIndex = "2";
     e.target.style.cursor = "pointer";
-    e.target.style.transition = ".5s all ease-in-out";
+    e.target.style.transition = ".3s all ease-in-out";
   }
 
   function handleMouseLeave(e) {
     e.target.style.transform = "scale(1,1)";
     e.target.style.zIndex = "0";
-    e.target.style.transition = ".5s all ease-in-out";
+    e.target.style.transition = ".3s all ease-in-out";
   }
 
   const settings = {
-    arrows: true,
     dots: true,
     infinite: true,
-    speed: 2000,
-    slidesToShow: 2,
-    slidesToScroll: 2,
     autoplay: true,
-    autoplaySpeed: 5000,
+    autoplaySpeed: 7000,
+    speed: 3000,
+    slidesToShow: 1,
+    slidesToScroll: 4,
+    variableWidth: true,
+    rows: 1,
+    pauseOnFocus: true,
     pauseOnHover: true,
-    // variableWidth: true,
   };
 
-  return (
-    <div className={styles.trending}>
-      <div className={styles.trendingHeader}>
-        <h2>Trending</h2>
-        <button
-          className={styles.movieBtn}
-          onClick={handleMoviesBtnClick}
-          style={{
-            backgroundColor: movieActive ? "red" : "black",
-            boxShadow: movieActive ? "2px 2px 10px black inset" : "none",
-          }}
-        >
-          Movies
-        </button>
-        <button
-          className={styles.tvBtn}
-          onClick={handleTvClick}
-          style={{
-            backgroundColor: tvActive ? "red" : "black",
-            boxShadow: tvActive ? "2px 2px 10px black inset" : "none",
-          }}
-        >
-          TV Shows
-        </button>
-      </div>
-      <div className={styles.wrapper} style={{ border: "2px solid yellow" }}>
+  return loading ? (
+    <div className={styles.skeletonDiv}>
+      <Skeleton
+        variant="rounded"
+        width={150}
+        height={225}
+        sx={{ bgcolor: "grey.900" }}
+      />
+      <Skeleton
+        variant="rounded"
+        width={150}
+        height={225}
+        sx={{ bgcolor: "grey.900" }}
+      />
+      <Skeleton
+        variant="rounded"
+        width={150}
+        height={225}
+        sx={{ bgcolor: "grey.900" }}
+      />
+      <Skeleton
+        variant="rounded"
+        width={150}
+        height={225}
+        sx={{ bgcolor: "grey.900" }}
+      />
+    </div>
+  ) : (
+    <div className={styles.container}>
+      <h2 className={styles.sectionHeader}>Trending</h2>
+      <div className={styles.wrapper}>
+        <div className={styles.movieTvshow}>
+          {/* <button
+            className={styles.movieBtn}
+            onClick={handleMoviesBtnClick}
+            style={{
+              backgroundColor: movieActive ? "red" : "black",
+              boxShadow: movieActive ? "2px 2px 10px black inset" : "none",
+            }}
+          >
+            Movies
+          </button> */}
+          <img
+            src={movieColorIcon}
+            alt="movie"
+            onClick={handleMoviesBtnClick}
+            className={styles.movieIcon}
+            style={{
+              // borderBottom: movieActive ? "red 3px solid" : "none",
+              filter: movieActive ? "none" : "grayscale(100%)",
+              transform: movieActive ? "scale(1.1,1.1)" : "scale(0.9,0.9)",
+            }}
+          />
+          <img
+            src={tvColorIcon}
+            alt="tv-show"
+            onClick={handleTvClick}
+            className={styles.tvIcon}
+            style={{
+              // borderBottom: tvActive ? "red 3px solid" : "none",
+              filter: tvActive ? "none" : "grayscale(100%)",
+              transform: tvActive ? "scale(1.1,1.1)" : "scale(0.9,0.9)",
+            }}
+          />
+          {/* <button
+            className={styles.tvBtn}
+            onClick={handleTvClick}
+            style={{
+              backgroundColor: tvActive ? "red" : "black",
+              boxShadow: tvActive ? "2px 2px 10px black inset" : "none",
+            }}
+          >
+            TV Shows
+          </button> */}
+        </div>
+
         <div className={styles["toggle-tab"]}>
           <button
             onClick={handleDayClick}
@@ -240,39 +297,60 @@ export default function Trending({ setId }) {
             Week
           </button>
         </div>
-        {/* else
-        {
-          <div key={el.id} className={styles["tv-show"]}>
-            <img
-              className={styles.showImg}
-              src={`${config.baseURL}${config.posterSize}${el.poster_path}`}
-              alt={el.name}
-              t-id={el.id}
-            />
-            <p
-              style={{
-                cursor: "pointer",
-                height: "auto",
-                textAlign: "center",
-              }}
-            >
-              {el.name}
-            </p>
-            <p style={{ color: "gray", fontSize: "12px" }}>
-              {el.first_air_date ? el.first_air_date : ""}
-            </p>
-          </div>
-        } */}
-        <div
-          className={styles["trending-movies"]}
-          style={{
-            width: "100%",
-            height: "490px",
-            overflowY: "hidden",
-            overflowX: "hidden",
-            display: "flex",
-          }}
-        ></div>
+      </div>
+
+      <div className={styles.sliderContainer}>
+        <Slider {...settings}>
+          {result.map((el) => {
+            if (el.media_type === "movie") {
+              return (
+                <Link
+                  to={`/movies/${el.id}`}
+                  style={{ display: "block", width: "100px" }}
+                  key={el.id}
+                >
+                  <img
+                    key={el.id}
+                    className={styles.movieImg}
+                    src={`${config.baseURL}${config.posterSize}${el.poster_path}`}
+                    alt={el.title}
+                    style={{
+                      width: "150px",
+                      height: "auto",
+                      borderRadius: "8px",
+                    }}
+                  />
+                  <p style={{ width: "150px", textAlign: "center" }}>
+                    {el.title}
+                  </p>
+                </Link>
+              );
+            } else {
+              return (
+                <Link
+                  to={`/shows/${el.id}`}
+                  style={{ display: "block", width: "100px" }}
+                  key={el.id}
+                >
+                  <img
+                    key={el.id}
+                    className={styles.movieImg}
+                    src={`${config.baseURL}${config.posterSize}${el.poster_path}`}
+                    alt={el.name}
+                    style={{
+                      width: "150px",
+                      height: "auto",
+                      borderRadius: "8px",
+                    }}
+                  />
+                  <p style={{ width: "150px", textAlign: "center" }}>
+                    {el.name}
+                  </p>
+                </Link>
+              );
+            }
+          })}
+        </Slider>
       </div>
     </div>
   );

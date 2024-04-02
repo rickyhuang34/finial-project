@@ -42,12 +42,12 @@ a:hover {
   cursor: pointer;
 }
 
-.list li :hover {
+/* .list li :hover {
   text-decoration: underline solid red 2px;
   text-underline-offset: 8px;
-}
+} */
 
-.list li a:focus {
+/* .list li a:focus {
   text-decoration: underline solid red 2px;
   text-underline-offset: 8px;
-}
+} */

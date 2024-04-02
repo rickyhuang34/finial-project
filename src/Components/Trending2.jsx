@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./Trending2.module.css";
 import { Skeleton } from "@mui/material";
+import { Splide, SplideSlide } from "@splidejs/react-splide";
 
 const token = `${process.env.REACT_APP_TOKEN}`;
 

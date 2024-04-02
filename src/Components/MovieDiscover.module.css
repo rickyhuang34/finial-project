@@ -21,6 +21,8 @@ form {
   margin-left: 10px;
 }
 
+/* ===== Movies ===== */
+
 .container {
   display: flex;
   flex-wrap: wrap;
@@ -29,7 +31,8 @@ form {
   align-items: flex-start;
   gap: 30px;
   width: 90%;
-  margin: 20px;
+  padding: 20px;
+  margin: 0 auto;
 }
 
 .movieContainer {
@@ -38,13 +41,50 @@ form {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  outline: 1px solid rgba(148, 148, 148, 0.653);
+  outline: 2px solid rgba(241, 218, 218, 0.653);
   border-radius: 8px;
   transition: all 0.3s linear;
+  background-color: black;
+  animation: scaleIn 0.5s linear;
+  animation-fill-mode: both;
 }
 
 .movieContainer:hover {
   outline: 2px solid red;
   box-shadow: 0px 0px 15px rgb(250, 67, 67);
-  transform: scale(1.05, 1.05);
+  transform: scale(1.05, 1.05) !important;
+}
+
+.poster {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  object-position: center;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.movieTitle {
+  width: 100%;
+  font-size: 14px;
+  padding: 5px 10px;
+  color: white;
+}
+
+.date {
+  width: 100%;
+  font-size: 10px;
+  color: grey;
+  padding: 0px 10px;
+}
+
+@keyframes scaleIn {
+  0% {
+    transform: scale(0.1, 0.1);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1, 1);
+    opacity: 1;
+  }
 }

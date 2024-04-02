@@ -1,7 +1,12 @@
+import { useState } from "react";
 import styles from "./Navbar.module.css";
 import { Link } from "react-router-dom";
 
 export default function Navbar() {
+  const [active, setActive] = useState(true);
+
+  function isActive() {}
+
   return (
     <nav className={styles["nav-bar"]}>
       <Link to="/">
@@ -13,13 +18,19 @@ export default function Navbar() {
       </Link>
       <ul className={styles.list}>
         <li key="home">
-          <Link to="/">Home</Link>
+          <Link to="/" onClick={isActive}>
+            Home
+          </Link>
         </li>
         <li>
-          <Link to="/movies">Movies</Link>
+          <Link to="/movies" onClick={isActive}>
+            Movies
+          </Link>
         </li>
         <li>
-          <Link to="/shows">TV Shows</Link>
+          <Link to="/shows" onClick={isActive}>
+            TV Shows
+          </Link>
         </li>
       </ul>
     </nav>

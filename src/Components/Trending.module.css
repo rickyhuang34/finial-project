@@ -6,155 +6,102 @@
 }
 
 body {
-  background-color: black; /*#052044*/
+  background-color: rgb(154, 103, 103); /*#052044*/
   color: white;
 }
 
-a {
-  width: 100px;
-}
-/* .trending {
-  margin: 15px 50px;
-  height: 350px;
+/* ===== Skeleton Div ===== */
+.skeletonDiv {
+  width: 100%;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 20px;
 }
 
-.trendingHeader {
+/* ===== Trending Container ===== */
+
+.container {
+  width: 100%;
+  margin: 10px 0;
+}
+
+/* ===== Header ===== */
+
+.sectionHeader {
+  text-align: center;
+}
+
+/* ===== Wrapper for button and toggle button ===== */
+
+.wrapper {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
-  gap: 20px;
-  width: 500px;
+  width: 100%;
+  height: 90%;
+  padding: 0 20px;
+}
+
+/* ===== Movie and Tv Shows Button ===== */
+
+.movieTvshow {
+  display: flex;
 }
 
 .movieBtn,
 .tvBtn {
-  padding: 20px;
+  padding: 10px;
   color: white;
-  width: 300px;
+  width: 100px;
   border: none;
   border-radius: 8px;
-  font-size: 16px;
+  font-size: 14px;
 }
 
+.movieIcon,
+.tvIcon {
+  width: 50px;
+  height: auto;
+  cursor: pointer;
+  margin: 0 10px;
+  transition: all 1s ease-in-out;
+}
+
+/* ===== Day and Week Toggle Button ===== */
+
 .toggle-tab {
-  background-color: black;
   text-align: center;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-  width: 100px;
   opacity: 0.9;
-  border-top-left-radius: 8px;
-  border-bottom-left-radius: 8px;
-  margin-top: 10px;
+  width: 100px;
 }
 
 .toggle-tab button {
   width: 100px;
   border: none;
-  padding: 65px 30px;
-  color: white;
-  background-color: black;
-  font-size: 16px;
-  font-weight: bold;
-  text-align: center;
-}
-
-.toggle-tab .day {
-  border-top-left-radius: 8px;
-}
-
-.toggle-tab .week {
-  border-bottom-left-radius: 8px;
-}
-
-.trending-movies {
-  background-color: rgba(80, 80, 80, 0.5);
-  border-top-right-radius: 8px;
-  border-bottom-right-radius: 8px;
-  width: 80%;
-  height: 300px;
   padding: 10px;
-  margin: 0 auto;
-  display: flex;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
 }
 
-.wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+/* ===== Poster image link ===== */
+
+a {
+  text-decoration: none;
+  color: black;
+  font-weight: 800;
+  width: 150px !important;
+}
+
+/* ===== Slider Container ===== */
+
+.sliderContainer {
   width: 100%;
-  height: 90%;
-}
-
-.movie,
-.tv-show {
-  width: 20px;
-  margin: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.movieImg,
-.showImg {
-  width: 130px;
-  height: auto;
-  border-radius: 5px;
-  cursor: pointer;
-  margin: 0 auto;
-}
-
-.slick-slider {
-  margin: 0px auto;
-  width: 500px;
-  background-color: aqua;
-  height: 300px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-}
-
-.slick-slider div {
+  height: 320px;
   display: flex;
   justify-content: space-around;
-  align-items: flex-start;
-} */
-/*
-button.slick-arrow.slick-next::before {
-  font-size: 40px;
-  position: relative;
-  right: 20px;
-  bottom: 30px;
+  align-items: center;
 }
-
-button.slick-arrow.slick-prev::before {
-  font-size: 40px;
-  position: relative;
-  left: 0px;
-  bottom: 30px;
-}
-
-.slick-dots {
-  display: flex;
-  justify-content: center;
-  margin-top: 12px;
-  list-style: none;
-  padding: 0;
-}
-
-.slick-dots li button:before {
-  font-size: 12px;
-  color: black;
-  opacity: 0.5;
-}
-
-.slick-dots li.slick-active button:before {
-  opacity: 1;
-  font-size: 14px;
-}
-*/
