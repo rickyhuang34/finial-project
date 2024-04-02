@@ -1,0 +1,107 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+body {
+  background-color: rgb(154, 103, 103); /*#052044*/
+  color: white;
+}
+
+/* ===== Skeleton Div ===== */
+.skeletonDiv {
+  width: 100%;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 20px;
+}
+
+/* ===== Trending Container ===== */
+
+.container {
+  width: 100%;
+  margin: 10px 0;
+}
+
+/* ===== Header ===== */
+
+.sectionHeader {
+  text-align: center;
+}
+
+/* ===== Wrapper for button and toggle button ===== */
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 90%;
+  padding: 0 20px;
+}
+
+/* ===== Movie and Tv Shows Button ===== */
+
+.movieTvshow {
+  display: flex;
+}
+
+.movieBtn,
+.tvBtn {
+  padding: 10px;
+  color: white;
+  width: 100px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.movieIcon,
+.tvIcon {
+  width: 50px;
+  height: auto;
+  cursor: pointer;
+  margin: 0 10px;
+  transition: all 1s ease-in-out;
+}
+
+/* ===== Day and Week Toggle Button ===== */
+
+.toggle-tab {
+  text-align: center;
+  display: flex;
+  opacity: 0.9;
+  width: 100px;
+}
+
+.toggle-tab button {
+  width: 100px;
+  border: none;
+  padding: 10px;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* ===== Poster image link ===== */
+
+a {
+  text-decoration: none;
+  color: black;
+  font-weight: 800;
+  width: 150px !important;
+}
+
+/* ===== Slider Container ===== */
+
+.sliderContainer {
+  width: 100%;
+  height: 320px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}

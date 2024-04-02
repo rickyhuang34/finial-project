@@ -1,0 +1,179 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+body {
+  background-color: black; /*#052044*/
+  color: white;
+}
+
+/* ==================== Navbar ==================== */
+
+.nav-bar {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 60px;
+  background-color: rgba(0, 0, 0, 0.584);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 5;
+  backdrop-filter: blur(5px);
+}
+
+.moviedb-logo {
+  width: 154px;
+  height: 20px;
+  padding: 0 15px;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-bar input {
+  width: 25rem;
+  height: 30px;
+  border-radius: 15px;
+  border: none;
+  padding-left: 10px;
+}
+
+.nav-bar button {
+  padding: 0 20px;
+  height: 30px;
+  border-radius: 20px;
+  border: none;
+  margin-left: 10px;
+}
+
+.list {
+  display: flex;
+  flex-direction: row;
+  color: white;
+  gap: 15px;
+}
+
+li {
+  list-style-type: none;
+}
+
+.list li a {
+  text-decoration: none;
+  color: white;
+}
+
+button,
+a :hover {
+  cursor: pointer;
+}
+
+/* ==================== Trending ==================== */
+
+.trending {
+  margin: 15px 50px;
+  height: 350px;
+}
+
+.trending-header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+  /* width: 300px; */
+}
+
+.movie-btn,
+.tv-btn {
+  padding: 20px;
+  color: white;
+  width: 300px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.toggle-tab {
+  /* position: absolute; */
+  background-color: black;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  width: 100px;
+  opacity: 0.9;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  margin-top: 10px;
+}
+
+.toggle-tab button {
+  width: 100px;
+  border: none;
+  padding: 65px 30px;
+  color: white;
+  background-color: black;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.toggle-tab .day {
+  border-top-left-radius: 8px;
+}
+
+.toggle-tab .week {
+  border-bottom-left-radius: 8px;
+}
+
+.trending-movies {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  /* flex-wrap: wrap; */
+  overflow-x: auto;
+  overflow-y: hidden;
+  background-color: rgba(80, 80, 80, 0.5);
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  width: 100%;
+  height: 300px;
+  margin-top: 10px;
+  padding: 10px;
+  /* padding-left: 110px; */
+}
+
+.wrapper {
+  display: flex;
+}
+
+.movie,
+.tv-show {
+  width: 150px;
+  margin: 10px;
+  /* display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: center; */
+}
+
+.movieImg,
+.showImg {
+  width: 130px;
+  height: auto;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.slick-list {
+  width: 1500px;
+}

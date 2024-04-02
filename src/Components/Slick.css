@@ -1,0 +1,32 @@
+.slick-slider {
+}
+
+.slick-next::before {
+  font-size: 25px !important;
+  line-height: 0 !important;
+  z-index: 2 !important;
+}
+
+.slick-prev::before {
+  font-size: 25px !important;
+  line-height: 0 !important;
+  z-index: 2 !important;
+}
+
+.slick-slide {
+  width: 300px !important;
+  margin-right: 20px;
+}
+
+.slick-list {
+  width: 660px !important;
+  height: 300px !important;
+  margin: 10px 20px !important;
+  border-radius: 5px;
+}
+
+.slick-track {
+  width: 660px !important;
+  padding: 10px;
+  display: flex;
+}
