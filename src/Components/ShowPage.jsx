@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Skeleton } from "@mui/material";
 import styles from "./ShowPage.module.css";
+import defaultImg from "./Images/defaultImg.jpg";
 
 const token = `${process.env.REACT_APP_TOKEN}`;
 
@@ -44,6 +45,7 @@ export default function ShowPage() {
         posterSize: apiConfig.images.still_sizes[2],
         profileSize: apiConfig.images.profile_sizes[1],
       });
+      console.log(result);
 
       setData(result);
     } catch (error) {
@@ -150,9 +152,7 @@ export default function ShowPage() {
             <hr style={{ width: "300px" }} />
 
             <p className={styles.overview}>{data.overview}</p>
-            <div style={{ display: "flex", gap: "10px" }}>
-              {/* <span>Status: {data.status}</span> */}
-            </div>
+            <div style={{ display: "flex", gap: "10px" }}></div>
             <p>Seasons: {data.number_of_seasons}</p>
             <p> Episodes: {data.number_of_episodes}</p>
 
@@ -169,24 +169,31 @@ export default function ShowPage() {
           </div>
         </div>
       </div>
-      <div className={styles.castContainer}>
-        <h2 className={styles.castHeader}>CAST</h2>
-        {data.credits &&
-          data.credits.cast.map((el, index) => {
-            if (index >= 0 && index < 6) {
-              return (
-                <div key={el.id} className={styles.cast}>
+      {data.credits && data.credits.cast.length === 0 ? null : (
+        <div className={styles.castContainer}>
+          <h2 className={styles.castHeader}>CAST</h2>
+          {data.credits &&
+            data.credits.cast.slice(0, 5).map((el, index) => (
+              <div key={el.id} className={styles.cast}>
+                {el.profile_path === null ? (
+                  <img
+                    className={styles.defaultImg}
+                    src={`${defaultImg}`}
+                    alt={el.name}
+                    key={el.id}
+                  />
+                ) : (
                   <img
                     className={styles.profilePic}
                     src={`${config.baseURL}${config.profileSize}${el.profile_path}`}
                     alt={el.name}
                     key={el.id}
                   />
-                  <p
-                    style={{ color: "black", padding: "5px", fontSize: "14px" }}
-                  >
-                    {el.name}
-                  </p>
+                )}
+                <p style={{ color: "black", padding: "5px", fontSize: "14px" }}>
+                  {el.name}
+                </p>
+                {el.character === "" ? null : (
                   <p
                     style={{
                       padding: "2px",
@@ -196,16 +203,17 @@ export default function ShowPage() {
                   >
                     Role: {el.character}
                   </p>
-                </div>
-              );
-            } else {
-              return null;
-            }
-          })}
-        <div class={styles.moreDiv}>
-          <button className={styles.moreBtn}>More➡️</button>
+                )}
+              </div>
+            ))}
+
+          {data.credits && data.credits.cast.length > 5 ? (
+            <div className={styles.moreDiv}>
+              <button className={styles.moreBtn}>More➡️</button>
+            </div>
+          ) : null}
         </div>
-      </div>
+      )}
     </>
   );
 }

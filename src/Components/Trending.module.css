@@ -6,7 +6,7 @@
 }
 
 body {
-  background-color: rgb(154, 103, 103); /*#052044*/
+  background-color: rgb(32, 32, 32); /*#052044*/
   color: white;
 }
 
@@ -24,24 +24,37 @@ body {
 
 .container {
   width: 100%;
-  margin: 10px 0;
+  height: 490px;
+  /* margin: 10px 0; */
+  /* padding: 10px; */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 /* ===== Header ===== */
 
 .sectionHeader {
   text-align: center;
+  margin-top: 8px;
 }
 
 /* ===== Wrapper for button and toggle button ===== */
 
 .wrapper {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  height: 90%;
-  padding: 0 20px;
+  align-items: flex-start;
+  width: 40%;
+  height: 100%;
+  padding: 10px 20px;
+  background-color: rgba(0, 0, 0, 0.582);
+  /* box-shadow: 10px 0 15px black; */
 }
 
 /* ===== Movie and Tv Shows Button ===== */
@@ -89,7 +102,7 @@ body {
 
 /* ===== Poster image link ===== */
 
-a {
+.sliderContainer a {
   text-decoration: none;
   color: black;
   font-weight: 800;

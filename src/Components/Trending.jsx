@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./Trending.module.css";
 import Slider from "react-slick";
@@ -19,10 +19,18 @@ export default function Trending({ setId }) {
   const [movieActive, setMovieActive] = useState(true);
   const [loading, setLoading] = useState(false);
   const [config, setConfig] = useState({});
+  const backgroundRef = useRef();
 
   useEffect(() => {
     trendingMovieDay();
   }, []);
+
+  useEffect(() => {
+    backgroundRef.current.style.backgroundImage =
+      result.length > 0
+        ? `url(${config.baseURL}${config.backdropSize}${result[0].backdrop_path})`
+        : "none";
+  });
 
   async function trendingMovieDay() {
     setLoading(true);
@@ -53,7 +61,6 @@ export default function Trending({ setId }) {
         posterSize: result.images.still_sizes[2],
         backdropSize: result.images.backdrop_sizes[3],
       });
-
       setResult(data.results);
     } catch (error) {
       console.log("Error fetching trending movies of day data:", error);
@@ -183,8 +190,8 @@ export default function Trending({ setId }) {
     dots: true,
     infinite: true,
     autoplay: true,
-    autoplaySpeed: 7000,
-    speed: 3000,
+    autoplaySpeed: 5000,
+    speed: 2000,
     slidesToShow: 1,
     slidesToScroll: 4,
     variableWidth: true,
@@ -193,165 +200,160 @@ export default function Trending({ setId }) {
     pauseOnHover: true,
   };
 
-  return loading ? (
-    <div className={styles.skeletonDiv}>
-      <Skeleton
-        variant="rounded"
-        width={150}
-        height={225}
-        sx={{ bgcolor: "grey.900" }}
-      />
-      <Skeleton
-        variant="rounded"
-        width={150}
-        height={225}
-        sx={{ bgcolor: "grey.900" }}
-      />
-      <Skeleton
-        variant="rounded"
-        width={150}
-        height={225}
-        sx={{ bgcolor: "grey.900" }}
-      />
-      <Skeleton
-        variant="rounded"
-        width={150}
-        height={225}
-        sx={{ bgcolor: "grey.900" }}
-      />
-    </div>
-  ) : (
-    <div className={styles.container}>
-      <h2 className={styles.sectionHeader}>Trending</h2>
-      <div className={styles.wrapper}>
-        <div className={styles.movieTvshow}>
-          {/* <button
-            className={styles.movieBtn}
-            onClick={handleMoviesBtnClick}
-            style={{
-              backgroundColor: movieActive ? "red" : "black",
-              boxShadow: movieActive ? "2px 2px 10px black inset" : "none",
-            }}
-          >
-            Movies
-          </button> */}
-          <img
-            src={movieColorIcon}
-            alt="movie"
-            onClick={handleMoviesBtnClick}
-            className={styles.movieIcon}
-            style={{
-              // borderBottom: movieActive ? "red 3px solid" : "none",
-              filter: movieActive ? "none" : "grayscale(100%)",
-              transform: movieActive ? "scale(1.1,1.1)" : "scale(0.9,0.9)",
-            }}
-          />
-          <img
-            src={tvColorIcon}
-            alt="tv-show"
-            onClick={handleTvClick}
-            className={styles.tvIcon}
-            style={{
-              // borderBottom: tvActive ? "red 3px solid" : "none",
-              filter: tvActive ? "none" : "grayscale(100%)",
-              transform: tvActive ? "scale(1.1,1.1)" : "scale(0.9,0.9)",
-            }}
-          />
-          {/* <button
-            className={styles.tvBtn}
-            onClick={handleTvClick}
-            style={{
-              backgroundColor: tvActive ? "red" : "black",
-              boxShadow: tvActive ? "2px 2px 10px black inset" : "none",
-            }}
-          >
-            TV Shows
-          </button> */}
-        </div>
+  function handleHover(i) {
+    backgroundRef.current.style.backgroundImage = `url(${config.baseURL}${config.backdropSize}${result[i].backdrop_path})`;
+  }
 
-        <div className={styles["toggle-tab"]}>
-          <button
-            onClick={handleDayClick}
-            onFocus={handleDayFocus}
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-            style={{
-              backgroundColor: onDayFocus ? "red" : "black",
-              boxShadow: onDayFocus ? "2px 2px 10px black inset" : "none",
-            }}
-            className={styles.day}
-          >
-            Day
-          </button>
-          <button
-            onClick={handleWeekClick}
-            onFocus={handleWeekFocus}
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-            style={{
-              backgroundColor: onWeekFocus ? "red" : "black",
-              boxShadow: onWeekFocus ? "2px 2px 10px black inset" : "none",
-            }}
-            className={styles.week}
-          >
-            Week
-          </button>
+  return (
+    <>
+      <div className={styles.container} ref={backgroundRef}>
+        <div className={styles.wrapper}>
+          <h2 className={styles.sectionHeader}>Trending</h2>
         </div>
       </div>
 
-      <div className={styles.sliderContainer}>
-        <Slider {...settings}>
-          {result.map((el) => {
-            if (el.media_type === "movie") {
-              return (
-                <Link
-                  to={`/movies/${el.id}`}
-                  style={{ display: "block", width: "100px" }}
-                  key={el.id}
-                >
-                  <img
+      {loading ? (
+        <div className={styles.skeletonDiv}>
+          <Skeleton
+            variant="rounded"
+            width={150}
+            height={225}
+            sx={{ bgcolor: "grey.900" }}
+          />
+          <Skeleton
+            variant="rounded"
+            width={150}
+            height={225}
+            sx={{ bgcolor: "grey.900" }}
+          />
+          <Skeleton
+            variant="rounded"
+            width={150}
+            height={225}
+            sx={{ bgcolor: "grey.900" }}
+          />
+          <Skeleton
+            variant="rounded"
+            width={150}
+            height={225}
+            sx={{ bgcolor: "grey.900" }}
+          />
+        </div>
+      ) : (
+        <div className={styles.sliderContainer}>
+          <Slider {...settings}>
+            {result.map((el, i) => {
+              if (el.media_type === "movie") {
+                return (
+                  <Link
+                    to={`/movies/${el.id}`}
+                    style={{ display: "block", width: "100px" }}
                     key={el.id}
-                    className={styles.movieImg}
-                    src={`${config.baseURL}${config.posterSize}${el.poster_path}`}
-                    alt={el.title}
-                    style={{
-                      width: "150px",
-                      height: "auto",
-                      borderRadius: "8px",
-                    }}
-                  />
-                  <p style={{ width: "150px", textAlign: "center" }}>
-                    {el.title}
-                  </p>
-                </Link>
-              );
-            } else {
-              return (
-                <Link
-                  to={`/shows/${el.id}`}
-                  style={{ display: "block", width: "100px" }}
-                  key={el.id}
-                >
-                  <img
+                  >
+                    <img
+                      onMouseEnter={function something() {
+                        handleHover(i);
+                      }}
+                      key={el.id}
+                      className={styles.movieImg}
+                      src={`${config.baseURL}${config.posterSize}${el.poster_path}`}
+                      alt={el.title}
+                      style={{
+                        width: "150px",
+                        height: "auto",
+                        borderRadius: "8px",
+                      }}
+                    />
+                    <p
+                      style={{
+                        width: "150px",
+                        textAlign: "center",
+                        color: "white",
+                      }}
+                    >
+                      {el.title}
+                    </p>
+                  </Link>
+                );
+              } else {
+                return (
+                  <Link
+                    to={`/shows/${el.id}`}
+                    style={{ display: "block", width: "100px" }}
                     key={el.id}
-                    className={styles.movieImg}
-                    src={`${config.baseURL}${config.posterSize}${el.poster_path}`}
-                    alt={el.name}
-                    style={{
-                      width: "150px",
-                      height: "auto",
-                      borderRadius: "8px",
-                    }}
-                  />
-                  <p style={{ width: "150px", textAlign: "center" }}>
-                    {el.name}
-                  </p>
-                </Link>
-              );
-            }
-          })}
-        </Slider>
+                  >
+                    <img
+                      key={el.id}
+                      className={styles.movieImg}
+                      src={`${config.baseURL}${config.posterSize}${el.poster_path}`}
+                      alt={el.name}
+                      style={{
+                        width: "150px",
+                        height: "auto",
+                        borderRadius: "8px",
+                      }}
+                    />
+                    <p style={{ width: "150px", textAlign: "center" }}>
+                      {el.name}
+                    </p>
+                  </Link>
+                );
+              }
+            })}
+          </Slider>
+        </div>
+      )}
+      <div className={styles.movieTvshow}>
+        <img
+          src={movieColorIcon}
+          alt="movie"
+          onClick={handleMoviesBtnClick}
+          className={styles.movieIcon}
+          style={{
+            filter: movieActive ? "none" : "grayscale(100%)",
+            transform: movieActive ? "scale(1.1,1.1)" : "scale(0.9,0.9)",
+          }}
+        />
+        <img
+          src={tvColorIcon}
+          alt="tv-show"
+          onClick={handleTvClick}
+          className={styles.tvIcon}
+          style={{
+            filter: tvActive ? "none" : "grayscale(100%)",
+            transform: tvActive ? "scale(1.1,1.1)" : "scale(0.9,0.9)",
+          }}
+        />
       </div>
-    </div>
+
+      <div className={styles["toggle-tab"]}>
+        <button
+          onClick={handleDayClick}
+          onFocus={handleDayFocus}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          style={{
+            backgroundColor: onDayFocus ? "red" : "black",
+            boxShadow: onDayFocus ? "2px 2px 10px black inset" : "none",
+          }}
+          className={styles.day}
+        >
+          Day
+        </button>
+        <button
+          onClick={handleWeekClick}
+          onFocus={handleWeekFocus}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          style={{
+            backgroundColor: onWeekFocus ? "red" : "black",
+            boxShadow: onWeekFocus ? "2px 2px 10px black inset" : "none",
+          }}
+          className={styles.week}
+        >
+          Week
+        </button>
+      </div>
+    </>
   );
 }

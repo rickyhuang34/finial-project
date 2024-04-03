@@ -30,3 +30,7 @@
   padding: 10px;
   display: flex;
 }
+
+.slick-dots li button::before {
+  color: white !important;
+}
