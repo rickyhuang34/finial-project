@@ -44,7 +44,7 @@ form {
   outline: 2px solid #c28dedaf;
   border-radius: 8px;
   transition: all 0.3s ease-in-out;
-  background-color: #aa53f1af;
+  background-color: rgb(43, 40, 40); /* #aa53f1af */
   animation: scaleIn 0.5s linear both;
 }
 

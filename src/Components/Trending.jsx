@@ -209,6 +209,7 @@ export default function Trending({ setId }) {
       <div className={styles.container} ref={backgroundRef}>
         <div className={styles.wrapper}>
           <h2 className={styles.sectionHeader}>Trending</h2>
+          {/* <p>{result[0].title}</p> */}
         </div>
       </div>
 
@@ -264,7 +265,7 @@ export default function Trending({ setId }) {
                         borderRadius: "8px",
                       }}
                     />
-                    <p
+                    {/* <p
                       style={{
                         width: "150px",
                         textAlign: "center",
@@ -272,7 +273,7 @@ export default function Trending({ setId }) {
                       }}
                     >
                       {el.title}
-                    </p>
+                    </p> */}
                   </Link>
                 );
               } else {
@@ -283,6 +284,9 @@ export default function Trending({ setId }) {
                     key={el.id}
                   >
                     <img
+                      onMouseEnter={function something() {
+                        handleHover(i);
+                      }}
                       key={el.id}
                       className={styles.movieImg}
                       src={`${config.baseURL}${config.posterSize}${el.poster_path}`}
@@ -293,9 +297,9 @@ export default function Trending({ setId }) {
                         borderRadius: "8px",
                       }}
                     />
-                    <p style={{ width: "150px", textAlign: "center" }}>
+                    {/* <p style={{ width: "150px", textAlign: "center" }}>
                       {el.name}
-                    </p>
+                    </p> */}
                   </Link>
                 );
               }

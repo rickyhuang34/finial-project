@@ -154,7 +154,7 @@ export default function ShowPage() {
             <p className={styles.overview}>{data.overview}</p>
             <div style={{ display: "flex", gap: "10px" }}></div>
             <p>Seasons: {data.number_of_seasons}</p>
-            <p> Episodes: {data.number_of_episodes}</p>
+            <p>Episodes: {data.number_of_episodes}</p>
 
             {data.credits &&
               data.credits.crew.map((ppl) => {

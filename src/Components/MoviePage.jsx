@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Skeleton } from "@mui/material";
 import styles from "./MoviePage.module.css";
+import { BiCalendar, BiSolidStar, BiTimeFive } from "react-icons/bi";
 
 const token = `${process.env.REACT_APP_TOKEN}`;
 
@@ -30,7 +31,7 @@ export default function MoviePage() {
       const apiConfig = await response.json();
 
       const res = await fetch(
-        `https://api.themoviedb.org/3/movie/${id}?append_to_response=credits,videos`,
+        `https://api.themoviedb.org/3/movie/${id}?append_to_response=credits,videos,release_dates`,
         {
           headers: {
             Authorization: token,
@@ -42,10 +43,11 @@ export default function MoviePage() {
       setConfig({
         baseURL: apiConfig.images.secure_base_url,
         backdropSize: apiConfig.images.backdrop_sizes[2],
-        posterSize: apiConfig.images.still_sizes[2],
+        posterSize: apiConfig.images.still_sizes[3],
       });
 
       setData(result);
+      console.log(result);
 
       let youtubeVids = Object.values(result.videos.results);
       setTrailers(youtubeVids);
@@ -122,46 +124,72 @@ export default function MoviePage() {
       <div
         className={styles.backdrop}
         style={{
-          backgroundImage: `url(${config.baseURL}${config.backdropSize}${data.backdrop_path})`,
+          background: `linear-gradient(rgba(0,0,0,.7), rgba(0,0,0,.7)), url(${config.baseURL}${config.backdropSize}${data.backdrop_path})`,
         }}
       >
-        <div className={styles.wrapper}>
-          <img
-            style={{
-              width: "auto",
-              height: "300px",
-              margin: "20px 50px",
-              borderRadius: "8px",
-              boxShadow: "-5px 5px 10px black",
-            }}
-            src={`${config.baseURL}${config.posterSize}${data.poster_path}`}
-            alt={data.title}
-          />
-          <div style={{ marginTop: "20px" }}>
-            <h2 className={styles.title}>{data.title}</h2>
-            <p style={{ fontSize: "14px", marginBottom: "10px" }}>
-              ({data.release_date})
-            </p>
-            {data.genres &&
-              data.genres.map((genre) => {
-                return (
-                  <span key={genre.id} className={styles.genre}>
-                    {genre.name}
-                  </span>
-                );
-              })}
-            <hr style={{ width: "300px" }} />
+        <div className={styles.wrapper} key={data.id}>
+          <div className={styles.left}>
+            <img
+              style={{
+                width: "250px",
+                height: "auto",
+                // margin: "10px",
+                borderRadius: "5px",
+              }}
+              src={`${config.baseURL}${config.posterSize}${data.poster_path}`}
+              alt={data.title}
+            />
+          </div>
+          <div className={styles.right} style={{ marginTop: "20px" }}>
+            <h2 className={styles.title}>
+              {data.title}{" "}
+              <span style={{ color: "grey", fontSize: "0.9em" }}>
+                {data.release_date && data.release_date.slice(0, 4)}
+              </span>
+            </h2>
+            <ul className={styles.info}>
+              <li key="date">
+                <BiCalendar style={{ verticalAlign: "-12%" }} />
+                {data.release_date &&
+                  new Date(data.release_date).toLocaleDateString("en-US")}
+              </li>
+              <li key="runtime">
+                <BiTimeFive style={{ color: "grey", verticalAlign: "-12%" }} />
+                {Math.floor(data.runtime / 60)}h {data.runtime % 60}m
+              </li>
+              {data.release_dates &&
+                data.release_dates.results.map((el, i) => {
+                  if (el.iso_3166_1 === "US") {
+                    const rating = el.release_dates.find(
+                      (cert) => cert.certification !== ""
+                    );
+                    return rating ? (
+                      <li key={i}>{rating.certification}</li>
+                    ) : null;
+                  } else return null;
+                })}
+            </ul>
 
-            <p className={styles.tagline}>{data.tagline}</p>
+            <hr style={{ width: "190px" }} />
+
+            <h3>Overview</h3>
             <p className={styles.overview}>{data.overview}</p>
-            {/* <div style={{ display: "flex", gap: "10px" }}> */}
-            {/* <span className={styles.status}>Status: {data.status}</span> */}
-            <p className={styles.time}>
-              &#128338; {Math.floor(data.runtime / 60)}h{data.runtime % 60}m
-            </p>
-            {/* </div> */}
 
-            {data.credits &&
+            {data.tagline ? (
+              <p className={styles.tagline}>{data.tagline}</p>
+            ) : null}
+
+            <p>
+              <BiSolidStar style={{ color: "yellow", verticalAlign: "-12%" }} />{" "}
+              {Math.round(data.vote_average * 10) / 10}
+            </p>
+            <ul className={styles.genre}>
+              {data.genres &&
+                data.genres.map((genre) => {
+                  return <li key={genre.id}>{genre.name}</li>;
+                })}
+            </ul>
+            {/* {data.credits &&
               data.credits.crew.map((ppl) => {
                 return (
                   <div>
@@ -172,7 +200,7 @@ export default function MoviePage() {
                     </span>
                   </div>
                 );
-              })}
+              })} */}
           </div>
         </div>
       </div>

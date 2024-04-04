@@ -2,7 +2,6 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  font-family: Georgia, "Times New Roman", Times, serif;
 }
 
 body {
@@ -33,7 +32,8 @@ body {
   justify-content: flex-start;
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: top center;
+  background-position: 0 -50px;
 }
 
 /* ===== Header ===== */
@@ -50,11 +50,10 @@ body {
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
-  width: 40%;
+  width: 100%;
   height: 100%;
   padding: 10px 20px;
-  background-color: rgba(0, 0, 0, 0.582);
-  /* box-shadow: 10px 0 15px black; */
+  background: linear-gradient(90deg, rgba(0, 0, 0, 1) 7%, rgba(0, 0, 0, 0) 70%);
 }
 
 /* ===== Movie and Tv Shows Button ===== */

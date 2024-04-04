@@ -2,7 +2,7 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  font-family: Georgia, "Times New Roman", Times, serif;
+  font-family: "Times New Roman", Times, serif;
 }
 
 .nav-bar {
@@ -10,7 +10,7 @@
   top: 0;
   width: 100%;
   height: 50px;
-  background-color: #890bf1af;
+  background-color: #5d04a6af;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -30,6 +30,7 @@
   flex-direction: row;
   color: white;
   gap: 15px;
+  list-style-type: none;
 }
 
 .list li a {
@@ -41,13 +42,3 @@
 a:hover {
   cursor: pointer;
 }
-
-/* .list li :hover {
-  text-decoration: underline solid red 2px;
-  text-underline-offset: 8px;
-} */
-
-/* .list li a:focus {
-  text-decoration: underline solid red 2px;
-  text-underline-offset: 8px;
-} */
