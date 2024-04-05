@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import styles from "./Trending.module.css";
+import styles from "./Styles/Trending.module.css";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import "./Slick.css";
+import "./Styles/Slick.css";
 import { Skeleton } from "@mui/material";
 import movieColorIcon from "./Images/movieColorIcon.png";
 import tvColorIcon from "./Images/tvColorIcon.png";

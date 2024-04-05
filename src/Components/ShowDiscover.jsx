@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import styles from "./ShowDiscover.module.css";
+import styles from "./Styles/ShowDiscover.module.css";
 import { Button } from "@mui/material";
 import Loading from "./Loading";
 

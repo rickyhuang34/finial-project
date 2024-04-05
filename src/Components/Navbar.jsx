@@ -1,5 +1,5 @@
 import { useState } from "react";
-import styles from "./Navbar.module.css";
+import styles from "./Styles/Navbar.module.css";
 import { Link } from "react-router-dom";
 
 export default function Navbar() {

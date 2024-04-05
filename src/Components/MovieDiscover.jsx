@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import styles from "./MovieDiscover.module.css";
+import styles from "./Styles/MovieDiscover.module.css";
 import { Button } from "@mui/material";
 import Loading from "./Loading";
+import ScrollButton from "./ScrollButton";
 
 const token = `${process.env.REACT_APP_TOKEN}`;
 
@@ -102,9 +103,6 @@ export default function MovieDiscover() {
     discoverMovie(page + 1);
   }
 
-  // spinner appears on first load
-  // when clicking load more, spinner appears in its place if loading is true
-
   return (
     <>
       {/* <form onSubmit={handleSubmit}>
@@ -133,7 +131,7 @@ export default function MovieDiscover() {
                   <div
                     key={el.id}
                     className={styles.movieContainer}
-                    // style={{ animationDelay: index / 20 + "s" }}
+                    // style={{ animationDelay: index / 10 + "s" }}
                   >
                     <Link
                       to={`/movies/${el.id}`}
@@ -194,6 +192,7 @@ export default function MovieDiscover() {
           </>
         )}
       </div>
+      <ScrollButton />
     </>
   );
 }

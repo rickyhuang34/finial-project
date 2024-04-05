@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Skeleton } from "@mui/material";
-import styles from "./MoviePage.module.css";
+import styles from "./Styles/MoviePage.module.css";
 import { BiCalendar, BiSolidStar, BiTimeFive } from "react-icons/bi";
+import PlayTrailer from "./PlayTrailer";
+import Videos from "./Videos";
 
 const token = `${process.env.REACT_APP_TOKEN}`;
 
@@ -133,7 +135,6 @@ export default function MoviePage() {
               style={{
                 width: "250px",
                 height: "auto",
-                // margin: "10px",
                 borderRadius: "5px",
               }}
               src={`${config.baseURL}${config.posterSize}${data.poster_path}`}
@@ -179,6 +180,8 @@ export default function MoviePage() {
               <p className={styles.tagline}>{data.tagline}</p>
             ) : null}
 
+            <PlayTrailer data={data} trailers={trailers} />
+
             <p>
               <BiSolidStar style={{ color: "yellow", verticalAlign: "-12%" }} />{" "}
               {Math.round(data.vote_average * 10) / 10}
@@ -204,24 +207,8 @@ export default function MoviePage() {
           </div>
         </div>
       </div>
-      {/* <div className={styles["video-container"]}>
-        <h1 className={styles.videoHeader}>Videos</h1>
-        <div className={styles["video-wrapper"]}>
-          {data &&
-            trailers.map((el) => {
-              return (
-                <iframe
-                  width="520"
-                  height="310"
-                  src={`https://www.youtube.com/embed/${el.key}`}
-                  title={data.title}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
-                  style={{ margin: "10px", border: "none" }}
-                ></iframe>
-              );
-            })}
-        </div>
-      </div> */}
+
+      <Videos data={data} trailers={trailers} />
     </>
   );
 }

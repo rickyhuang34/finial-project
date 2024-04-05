@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Skeleton } from "@mui/material";
-import styles from "./ShowPage.module.css";
+import styles from "./Styles/ShowPage.module.css";
 import defaultImg from "./Images/defaultImg.jpg";
 
 const token = `${process.env.REACT_APP_TOKEN}`;
