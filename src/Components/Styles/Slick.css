@@ -5,12 +5,14 @@
   font-size: 25px !important;
   line-height: 0 !important;
   z-index: 2 !important;
+  color: rgb(108, 107, 107) !important;
 }
 
 .slick-prev::before {
   font-size: 25px !important;
   line-height: 0 !important;
   z-index: 2 !important;
+  color: rgb(108, 107, 107) !important;
 }
 
 .slick-slide {
@@ -31,6 +33,11 @@
   display: flex;
 }
 
+ul.slick-dots {
+  /* position: absolute !important; */
+  bottom: 20px !important;
+}
+
 .slick-dots li button::before {
-  color: white !important;
+  /* color: rgb(0, 0, 0) !important; */
 }

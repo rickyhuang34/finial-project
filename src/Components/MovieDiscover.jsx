@@ -9,7 +9,7 @@ const token = `${process.env.REACT_APP_TOKEN}`;
 
 export default function MovieDiscover() {
   const [config, setConfig] = useState({});
-  // const [userInput, setUserInput] = useState("");
+  const [userInput, setUserInput] = useState("");
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
@@ -75,26 +75,26 @@ export default function MovieDiscover() {
     }
   }
 
-  // function handleChange(e) {
-  // setUserInput(e.target.value);
-  //   // console.log(userInput);
-  // }
+  function handleChange(e) {
+    setUserInput(e.target.value);
+    // console.log(userInput);
+  }
 
-  // async function handleSubmit(e) {
-  //   e.preventDefault();
-  //   const res = await fetch(
-  //     `https://api.themoviedb.org/3/search/multi?query=${userInput}&language=en-US&page=1`,
-  //     {
-  //       headers: {
-  //         Authorization: token,
-  //       },
-  //     }
-  //   );
-  //   const resData = await res.json();
-  //   console.log(resData);
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const res = await fetch(
+      `https://api.themoviedb.org/3/search/movie?query=${userInput}&include_adult=false&language=en-US&page=1`,
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    const resData = await res.json();
+    console.log(resData);
 
-  //   setUserInput("");
-  // }
+    setUserInput("");
+  }
 
   function handleClickMore(e) {
     e.preventDefault();
@@ -105,9 +105,10 @@ export default function MovieDiscover() {
 
   return (
     <>
-      {/* <form onSubmit={handleSubmit}>
+      <h2 style={{ textAlign: "center", margin: "10px 0" }}>Discover Movies</h2>
+      <form onSubmit={handleSubmit}>
         <input
-          placeholder="Search for a movie, tv show, person..."
+          placeholder="Search for a movie, tv show..."
           onChange={handleChange}
           value={userInput}
           type="text"
@@ -117,22 +118,17 @@ export default function MovieDiscover() {
         <button type="submit" className={styles.submitBtn}>
           Sumbit
         </button>
-      </form> */}
+      </form>
 
-      <h2 style={{ textAlign: "center", margin: "10px 0" }}>Discover Movies</h2>
       <div className={styles.container}>
         {loading && !data.results ? (
           <Loading />
         ) : (
           <>
             {data.results &&
-              data.results.map((el, index) => {
+              data.results.map((el) => {
                 return (
-                  <div
-                    key={el.id}
-                    className={styles.movieContainer}
-                    // style={{ animationDelay: index / 10 + "s" }}
-                  >
+                  <div key={el.id} className={styles.movieContainer}>
                     <Link
                       to={`/movies/${el.id}`}
                       style={{

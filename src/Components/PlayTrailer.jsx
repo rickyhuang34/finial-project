@@ -20,7 +20,8 @@ export default function PlayTrailer({ data, trailers }) {
       {modal
         ? data &&
           trailers.map((el) =>
-            el.type === "Trailer" && el.name.includes("Official Trailer") ? (
+            (el.type === "Trailer" && el.name.includes("Official Trailer")) ||
+            el.name.includes("Trailer") ? (
               <div key={el.key} className={styles.popupTrailer}>
                 <RxCross2
                   onClick={handleTrailer}

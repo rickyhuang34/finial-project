@@ -5,6 +5,7 @@ import styles from "./Styles/MoviePage.module.css";
 import { BiCalendar, BiSolidStar, BiTimeFive } from "react-icons/bi";
 import PlayTrailer from "./PlayTrailer";
 import Videos from "./Videos";
+import MovieAbout from "./MovieAbout";
 
 const token = `${process.env.REACT_APP_TOKEN}`;
 
@@ -126,7 +127,7 @@ export default function MoviePage() {
       <div
         className={styles.backdrop}
         style={{
-          background: `linear-gradient(rgba(0,0,0,.7), rgba(0,0,0,.7)), url(${config.baseURL}${config.backdropSize}${data.backdrop_path})`,
+          background: `linear-gradient(rgba(0,0,0,.3) 50%, rgba(0,0,0,1)) 90%, url(${config.baseURL}${config.backdropSize}${data.backdrop_path})`,
         }}
       >
         <div className={styles.wrapper} key={data.id}>
@@ -144,7 +145,7 @@ export default function MoviePage() {
           <div className={styles.right} style={{ marginTop: "20px" }}>
             <h2 className={styles.title}>
               {data.title}{" "}
-              <span style={{ color: "grey", fontSize: "0.9em" }}>
+              <span style={{ color: "#e3e4e6", fontSize: "0.9em" }}>
                 {data.release_date && data.release_date.slice(0, 4)}
               </span>
             </h2>
@@ -155,8 +156,8 @@ export default function MoviePage() {
                   new Date(data.release_date).toLocaleDateString("en-US")}
               </li>
               <li key="runtime">
-                <BiTimeFive style={{ color: "grey", verticalAlign: "-12%" }} />
-                {Math.floor(data.runtime / 60)}h {data.runtime % 60}m
+                <BiTimeFive style={{ verticalAlign: "-12%" }} />
+                {Math.floor(data.runtime / 60)}h{data.runtime % 60}m
               </li>
               {data.release_dates &&
                 data.release_dates.results.map((el, i) => {
@@ -192,21 +193,11 @@ export default function MoviePage() {
                   return <li key={genre.id}>{genre.name}</li>;
                 })}
             </ul>
-            {/* {data.credits &&
-              data.credits.crew.map((ppl) => {
-                return (
-                  <div>
-                    <span>
-                      {ppl.job === "Director"
-                        ? `${ppl.job}: ${ppl.name}`
-                        : null}
-                    </span>
-                  </div>
-                );
-              })} */}
           </div>
         </div>
       </div>
+
+      <MovieAbout data={data} config={config} />
 
       <Videos data={data} trailers={trailers} />
     </>

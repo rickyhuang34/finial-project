@@ -24,8 +24,8 @@ export default function Videos({ trailers, data }) {
 
   return (
     <div className={styles["video-container"]}>
-      <h1 className={styles.videoHeader}>
-        Videos{" "}
+      <h2 className={styles.videoHeader}>
+        VIDEOS{" "}
         <span style={{ fontSize: "0.8em", color: "#4d4d4d" }}>
           {trailers.length}
         </span>
@@ -85,12 +85,13 @@ export default function Videos({ trailers, data }) {
             </span>
           </div>
         )}
-      </h1>
+      </h2>
       <div className={styles["video-wrapper"]}>
         {data &&
           trailers.map((el) =>
             el.type === selectedType ? (
               <iframe
+                key={el.key}
                 className={styles.video}
                 src={`https://www.youtube.com/embed/${el.key}`}
                 title={data.title}
