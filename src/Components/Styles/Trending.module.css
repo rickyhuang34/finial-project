@@ -1,0 +1,69 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+/* ===== Skeleton Div ===== */
+.skeletonDiv {
+  width: 100%;
+  height: 220px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 20px;
+}
+
+/* ===== Trending Container ===== */
+
+.container {
+  width: 100%;
+  height: 380px;
+  /* margin: 10px 0; */
+  /* padding: 10px; */
+  /* display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center; */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  /* background-position: 0 -50px; */
+}
+
+.wrapper {
+  width: 100%;
+  height: 400px;
+  background: rgb(228, 227, 227);
+  background-color: rgb(243, 238, 238); /*#052044*/
+  color: black;
+  padding: 10px 50px;
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 700px;
+  margin: 0 auto;
+}
+
+/* ===== Poster image link ===== */
+
+.sliderContainer a {
+  text-decoration: none;
+  color: black;
+  font-weight: 800;
+  width: 150px !important;
+}
+
+/* ===== Slider Container ===== */
+
+.sliderContainer {
+  width: 100%;
+  height: 320px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}

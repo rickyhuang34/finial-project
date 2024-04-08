@@ -1,0 +1,110 @@
+form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.input {
+  width: 25rem;
+  height: 30px;
+  border-radius: 15px;
+  border: none;
+  padding-left: 10px;
+}
+
+.submitBtn {
+  padding: 0 20px;
+  height: 30px;
+  border-radius: 20px;
+  border: none;
+  margin-left: 10px;
+}
+
+/* ===== Shows ===== */
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 30px;
+  width: 90%;
+  padding: 20px;
+  margin: 0 auto;
+}
+
+.showContainer {
+  width: 300px;
+  height: 180px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  outline: 2px solid #c28dedaf;
+  border-radius: 8px;
+  transition: all 0.3s ease-in-out;
+  background-color: rgb(43, 40, 40);
+  animation: scaleIn 0.5s linear both;
+}
+
+.showContainer:hover {
+  outline: 2px solid rgb(191, 0, 255);
+  box-shadow: 0px 0px 15px rgb(207, 67, 250);
+}
+
+.textContent {
+  width: 180px;
+  height: 100%;
+  padding: 5px 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.poster {
+  width: 120px;
+  height: 180px;
+  object-fit: cover;
+  object-position: center;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+.showName {
+  width: 100%;
+  height: fit-content;
+  font-size: 15px;
+  color: white;
+  font-weight: 600;
+}
+
+.overview {
+  height: fit-content;
+  width: 100%;
+  font-size: 14px;
+}
+
+.date {
+  width: 100%;
+  height: fit-content;
+  font-size: 12px;
+  color: white;
+}
+
+.loadMore {
+  background-color: #aa53f1af !important;
+  margin: auto 0 !important;
+}
+
+@keyframes scaleIn {
+  0% {
+    transform: scale(0.1, 0.1);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1, 1);
+    opacity: 1;
+  }
+}
