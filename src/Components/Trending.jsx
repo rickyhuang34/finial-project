@@ -4,7 +4,7 @@ import styles from "./Styles/Trending.module.css";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import "./Styles/Slick.css";
+import "./Styles/TrendingSlick.css";
 import { Skeleton } from "@mui/material";
 import SelectMovieTv from "./SelectMovieTv";
 

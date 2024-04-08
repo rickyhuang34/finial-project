@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import styles from "./Styles/Videos.module.css";
+import styles from "../Styles/Videos.module.css";
 
 export default function Videos({ trailers, data }) {
   const [selectedType, setSelectedType] = useState("Trailer");
@@ -25,7 +25,7 @@ export default function Videos({ trailers, data }) {
   return (
     <div className={styles["video-container"]}>
       <h2 className={styles.videoHeader}>
-        VIDEOS{" "}
+        Videos{" "}
         <span style={{ fontSize: "0.8em", color: "#4d4d4d" }}>
           {trailers.length}
         </span>
@@ -88,10 +88,10 @@ export default function Videos({ trailers, data }) {
       </h2>
       <div className={styles["video-wrapper"]}>
         {data &&
-          trailers.map((el) =>
+          trailers.map((el, index) =>
             el.type === selectedType ? (
               <iframe
-                key={el.key}
+                key={index}
                 className={styles.video}
                 src={`https://www.youtube.com/embed/${el.key}`}
                 title={data.title}

@@ -1,26 +1,27 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { Skeleton } from "@mui/material";
-import styles from "./Styles/MoviePage.module.css";
-import { BiCalendar, BiSolidStar, BiTimeFive } from "react-icons/bi";
-import PlayTrailer from "./PlayTrailer";
-import Videos from "./Videos";
-import MovieAbout from "./MovieAbout";
+import styles from "../Styles/ShowPage.module.css";
+import defaultImg from "../Images/defaultImg.jpg";
+import { PiTelevisionSimpleDuotone } from "react-icons/pi";
+import { BiCalendar, BiSolidStar } from "react-icons/bi";
+import { FaFilm } from "react-icons/fa";
+import ShowAbout from "./ShowAbout";
+import RecommendShows from "./RecommendShows";
 
 const token = `${process.env.REACT_APP_TOKEN}`;
 
-export default function MoviePage() {
+export default function ShowPage() {
   const [data, setData] = useState({});
   const [config, setConfig] = useState({});
   const [loading, setLoading] = useState(false);
-  const [trailers, setTrailers] = useState([]);
   const { id } = useParams();
 
   useEffect(() => {
-    getMovieById();
+    getShowById();
   }, []);
 
-  async function getMovieById() {
+  async function getShowById() {
     setLoading(true);
     try {
       const response = await fetch(
@@ -34,7 +35,7 @@ export default function MoviePage() {
       const apiConfig = await response.json();
 
       const res = await fetch(
-        `https://api.themoviedb.org/3/movie/${id}?append_to_response=credits,videos,release_dates`,
+        `https://api.themoviedb.org/3/tv/${id}?append_to_response=credits,videos`,
         {
           headers: {
             Authorization: token,
@@ -46,16 +47,14 @@ export default function MoviePage() {
       setConfig({
         baseURL: apiConfig.images.secure_base_url,
         backdropSize: apiConfig.images.backdrop_sizes[2],
-        posterSize: apiConfig.images.still_sizes[3],
+        posterSize: apiConfig.images.still_sizes[2],
+        profileSize: apiConfig.images.profile_sizes[1],
       });
-
-      setData(result);
       console.log(result);
 
-      let youtubeVids = Object.values(result.videos.results);
-      setTrailers(youtubeVids);
+      setData(result);
     } catch (error) {
-      console.log("Get movie error", error);
+      console.log("Get show error", error);
     } finally {
       setLoading(false);
     }
@@ -127,7 +126,7 @@ export default function MoviePage() {
       <div
         className={styles.backdrop}
         style={{
-          background: `linear-gradient(rgba(0,0,0,.3) 50%, rgba(0,0,0,1)) 90%, url(${config.baseURL}${config.backdropSize}${data.backdrop_path})`,
+          backgroundImage: `linear-gradient(rgba(0,0,0,.5) , rgba(0,0,0,.5)), url(${config.baseURL}${config.backdropSize}${data.backdrop_path})`,
         }}
       >
         <div className={styles.wrapper} key={data.id}>
@@ -139,67 +138,81 @@ export default function MoviePage() {
                 borderRadius: "5px",
               }}
               src={`${config.baseURL}${config.posterSize}${data.poster_path}`}
-              alt={data.title}
+              alt={data.name}
             />
           </div>
-          <div className={styles.right} style={{ marginTop: "20px" }}>
-            <h2 className={styles.title}>
-              {data.title}{" "}
-              <span style={{ color: "#e3e4e6", fontSize: "0.9em" }}>
-                {data.release_date && data.release_date.slice(0, 4)}
-              </span>
-            </h2>
-            <ul className={styles.info}>
-              <li key="date">
-                <BiCalendar style={{ verticalAlign: "-12%" }} />
-                {data.release_date &&
-                  new Date(data.release_date).toLocaleDateString("en-US")}
-              </li>
-              <li key="runtime">
-                <BiTimeFive style={{ verticalAlign: "-12%" }} />
-                {Math.floor(data.runtime / 60)}h{data.runtime % 60}m
-              </li>
-              {data.release_dates &&
-                data.release_dates.results.map((el, i) => {
-                  if (el.iso_3166_1 === "US") {
-                    const rating = el.release_dates.find(
-                      (cert) => cert.certification !== ""
-                    );
-                    return rating ? (
-                      <li key={i}>{rating.certification}</li>
-                    ) : null;
-                  } else return null;
-                })}
-            </ul>
+          <div className={styles.right}>
+            <div>
+              <h2 className={styles.name}>
+                {data.name}{" "}
+                <span style={{ color: "#bababa", fontSize: "0.9em" }}>
+                  {data.first_air_date && data.first_air_date.slice(0, 4)}
+                </span>
+              </h2>
 
-            <hr style={{ width: "190px" }} />
+              <ul className={styles.info}>
+                <li key="date">
+                  <BiCalendar style={{ verticalAlign: "-12%" }} />{" "}
+                  {data.first_air_date &&
+                    new Date(data.first_air_date).toLocaleDateString("en-US")}
+                </li>
+                <li key="seasons">
+                  <PiTelevisionSimpleDuotone
+                    style={{ verticalAlign: "-12%" }}
+                  />{" "}
+                  {data.number_of_seasons > 1
+                    ? data.number_of_seasons + " Seasons"
+                    : data.number_of_seasons + " Season"}
+                </li>
+                <li key="episodes">
+                  <FaFilm style={{ verticalAlign: "-12%" }} />{" "}
+                  {data.number_of_episodes > 1
+                    ? data.number_of_episodes + " Episodes"
+                    : data.number_of_episodes + " Episode"}
+                </li>
+              </ul>
 
-            <h3>Overview</h3>
-            <p className={styles.overview}>{data.overview}</p>
+              <hr style={{ width: "300px" }} />
+            </div>
+
+            <div>
+              <h3>Overview</h3>
+              <p className={styles.overview}>{data.overview}</p>
+            </div>
 
             {data.tagline ? (
               <p className={styles.tagline}>{data.tagline}</p>
             ) : null}
 
-            <PlayTrailer data={data} trailers={trailers} />
-
             <p>
               <BiSolidStar style={{ color: "yellow", verticalAlign: "-12%" }} />{" "}
               {Math.round(data.vote_average * 10) / 10}
             </p>
+
             <ul className={styles.genre}>
               {data.genres &&
                 data.genres.map((genre) => {
-                  return <li key={genre.id}>{genre.name}</li>;
+                  return (
+                    <Link
+                      to={`/shows/genre/${genre.id}`}
+                      style={{
+                        textDecoration: "none",
+                        width: "fit-content",
+                        height: "fit-content",
+                        color: "white",
+                      }}
+                    >
+                      <li key={genre.id}>{genre.name}</li>
+                    </Link>
+                  );
                 })}
             </ul>
           </div>
         </div>
       </div>
+      <ShowAbout data={data} config={config} />
 
-      <MovieAbout data={data} config={config} />
-
-      <Videos data={data} trailers={trailers} />
+      <RecommendShows config={config} id={id} data={data} />
     </>
   );
 }

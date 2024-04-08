@@ -1,7 +1,7 @@
 import { BiPlayCircle } from "react-icons/bi";
 import { RxCross2 } from "react-icons/rx";
 import { useState } from "react";
-import styles from "./Styles/PlayTrailer.module.css";
+import styles from "../Styles/PlayTrailer.module.css";
 
 export default function PlayTrailer({ data, trailers }) {
   const [modal, setModal] = useState(false);
@@ -21,7 +21,8 @@ export default function PlayTrailer({ data, trailers }) {
         ? data &&
           trailers.map((el) =>
             (el.type === "Trailer" && el.name.includes("Official Trailer")) ||
-            el.name.includes("Trailer") ? (
+            el.name.includes("Trailer") ||
+            el.name.includes("OFFICIAL TRAILER") ? (
               <div key={el.key} className={styles.popupTrailer}>
                 <RxCross2
                   onClick={handleTrailer}

@@ -44,11 +44,11 @@ body {
   align-items: center;
 }
 .right {
-  width: 500px;
-  height: 80%;
+  width: 620px;
+  height: 95%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 ul.info {
@@ -84,7 +84,7 @@ ul.genre {
   align-items: center;
   flex-wrap: wrap;
   gap: 5px;
-  font-size: 12px;
+  font-size: 13px;
   padding: 5px 0;
 }
 
@@ -92,7 +92,14 @@ ul.genre li {
   list-style-type: none;
   padding: 7px;
   border: 1px solid white;
-  border-radius: 1rem;
+  border-radius: 20px;
+  transition: 0.3s all ease;
+}
+
+ul.genre li:hover {
+  background-color: white;
+  color: black;
+  box-shadow: 0 0 4px white;
 }
 
 /* ===== Youtube Trailer & Videos ===== */

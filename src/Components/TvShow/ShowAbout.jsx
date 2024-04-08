@@ -1,7 +1,7 @@
-import styles from "./Styles/MovieAbout.module.css";
-import defaultImg from "./Images/defaultImg.jpg";
+import styles from "../Styles/ShowAbout.module.css";
+import defaultImg from "../Images/defaultImg.jpg";
 
-export default function MovieAbout({ data, config }) {
+export default function ShowAbout({ data, config }) {
   return (
     <div className={styles.container}>
       <div
@@ -11,7 +11,7 @@ export default function MovieAbout({ data, config }) {
           width: "80%",
         }}
       >
-        <h3 key="castheader">CAST</h3>
+        <h3 key="castheader">Cast</h3>
         <div className={styles.castContainer}>
           {data.credits &&
             data.credits.cast.slice(0, 10).map((ppl) => {
@@ -55,25 +55,19 @@ export default function MovieAbout({ data, config }) {
           {data && data.status}
         </li>
 
-        <li key="budget">
-          <strong>Budget</strong>
+        <li key="lastairdate">
+          <strong>Last Air Date</strong>
           <br />
-          {data && data.budget > 0
-            ? "$" +
-              data.budget.toLocaleString("en-US", {
-                minimumFractionDigits: 0,
-              })
-            : "-"}
+          {data && new Date(data.last_air_date).toLocaleDateString("en-US")}
         </li>
-        <li key="revenue">
-          <strong>Revenue</strong>
+        <li key="createdby">
+          <strong>Created By</strong>
           <br />
-          {data && data.revenue > 0
-            ? "$" +
-              data.revenue.toLocaleString("en-US", {
-                minimumFractionDigits: 0,
-              })
-            : "-"}
+          {data &&
+            data.created_by &&
+            data.created_by.map((el) => {
+              return <li>{el.name}</li>;
+            })}
         </li>
       </ul>
     </div>

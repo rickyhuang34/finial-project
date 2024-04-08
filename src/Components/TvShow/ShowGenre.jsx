@@ -1,24 +1,28 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import styles from "./Styles/ShowDiscover.module.css";
+import { useParams, Link } from "react-router-dom";
+import styles from "../Styles/ShowGenre.module.css";
+import Loading from "../Loading";
 import { Button } from "@mui/material";
-import Loading from "./Loading";
+import ScrollButton from "../ScrollButton";
+import defaultPoster from "../Images/defaultPoster.jpg";
 
 const token = `${process.env.REACT_APP_TOKEN}`;
 
-export default function ShowDiscover() {
-  const [config, setConfig] = useState({});
-  // const [userInput, setUserInput] = useState("");
+export default function ShowGenre() {
+  const [config, setConfig] = useState();
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [showSpinner, setShowSpinner] = useState(false);
+  const [genreList, setGenreList] = useState({});
+  const { genreid } = useParams();
 
   useEffect(() => {
-    discoverShow(1);
+    getGenre(1);
+    getGenreList();
   }, []);
 
-  async function discoverShow(page) {
+  async function getGenre(page) {
     try {
       const response = await fetch(
         "https://api.themoviedb.org/3/configuration",
@@ -29,7 +33,6 @@ export default function ShowDiscover() {
         }
       );
       const apiConfig = await response.json();
-
       setConfig({
         baseURL: apiConfig.images.secure_base_url,
         backdropSize: apiConfig.images.backdrop_sizes[2],
@@ -38,30 +41,30 @@ export default function ShowDiscover() {
 
       if (page === 1) {
         setLoading(true);
-        const res = await fetch(
-          `https://api.themoviedb.org/3/discover/tv?page=${page}`,
+        const genreResponse = await fetch(
+          `https://api.themoviedb.org/3/discover/tv?language=en-US&page=${page}&sort_by=popularity.desc&with_genres=${genreid}`,
           {
             headers: {
               Authorization: token,
             },
           }
         );
-        const result = await res.json();
-        setData(result);
+        const genreResult = await genreResponse.json();
+        setData(genreResult);
         setShowSpinner(false);
       } else if (page >= 2) {
-        const res = await fetch(
-          `https://api.themoviedb.org/3/discover/tv?page=${page}`,
+        const genreResponse = await fetch(
+          `https://api.themoviedb.org/3/discover/tv?language=en-US&page=${page}&sort_by=popularity.desc&with_genres=${genreid}`,
           {
             headers: {
               Authorization: token,
             },
           }
         );
-        const result = await res.json();
+        const genreResult = await genreResponse.json();
         setData((prevData) => ({
           ...prevData,
-          results: [...prevData.results, ...result.results],
+          results: [...prevData.results, ...genreResult.results],
         }));
       }
     } catch (error) {
@@ -75,51 +78,38 @@ export default function ShowDiscover() {
     }
   }
 
-  // function handleChange(e) {
-  //   setUserInput(e.target.value);
-  //   // console.log(userInput);
-  // }
-
-  // async function handleSubmit(e) {
-  //   e.preventDefault();
-  //   const res = await fetch(
-  //     `https://api.themoviedb.org/3/search/multi?query=${userInput}&language=en-US&page=1`,
-  //     {
-  //       headers: {
-  //         Authorization: token,
-  //       },
-  //     }
-  //   );
-  //   const resData = await res.json();
-  //   // console.log(resData);
-
-  //   setUserInput("");
-  // }
+  async function getGenreList() {
+    const resList = await fetch(
+      `https://api.themoviedb.org/3/genre/tv/list?language=en`,
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    const resultList = await resList.json();
+    setGenreList(resultList);
+  }
 
   function handleClickMore(e) {
     e.preventDefault();
     setShowSpinner(true);
     setPage(page + 1);
-    discoverShow(page + 1);
+    getGenre(page + 1);
   }
 
   return (
     <>
-      {/* <form onSubmit={handleSubmit}>
-        <input
-          placeholder="Search for a movie, tv show, person..."
-          onChange={handleChange}
-          value={userInput}
-          type="text"
-          className={styles.input}
-          name="userInput"
-        />
-        <button type="submit" className={styles.submitBtn}>
-          Sumbit
-        </button>
-      </form> */}
+      {genreList &&
+        genreList.genres &&
+        genreList.genres.map((genre) => {
+          return genre.id == genreid ? (
+            <h1 style={{ textAlign: "center", margin: "20px 0 10px" }}>
+              {genre.name} Shows
+            </h1>
+          ) : null;
+        })}
 
-      <h2 style={{ textAlign: "center", margin: "10px 0" }}>Discover Shows</h2>
       <div className={styles.container}>
         {loading && !data.results ? (
           <Loading />
@@ -140,7 +130,11 @@ export default function ShowDiscover() {
                     >
                       <img
                         className={styles.poster}
-                        src={`${config.baseURL}${config.posterSize}${el.poster_path}`}
+                        src={
+                          el.poster_path
+                            ? `${config.baseURL}${config.posterSize}${el.poster_path}`
+                            : `${defaultPoster}`
+                        }
                         alt={el.name}
                       />
                     </Link>
@@ -190,6 +184,7 @@ export default function ShowDiscover() {
           </>
         )}
       </div>
+      <ScrollButton />
     </>
   );
 }

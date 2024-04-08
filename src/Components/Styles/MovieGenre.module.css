@@ -1,28 +1,3 @@
-form {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 20px;
-}
-
-.input {
-  width: 25rem;
-  height: 30px;
-  border-radius: 15px;
-  border: none;
-  padding-left: 10px;
-}
-
-.submitBtn {
-  padding: 0 20px;
-  height: 30px;
-  border-radius: 20px;
-  border: none;
-  margin-left: 10px;
-}
-
-/* ===== Shows ===== */
-
 .container {
   display: flex;
   flex-wrap: wrap;
@@ -35,7 +10,7 @@ form {
   margin: 0 auto;
 }
 
-.showContainer {
+.movieContainer {
   width: 300px;
   height: 180px;
   display: flex;
@@ -43,14 +18,15 @@ form {
   justify-content: flex-start;
   outline: 2px solid #c28dedaf;
   border-radius: 8px;
-  transition: all 0.3s ease-in-out;
-  background-color: rgb(43, 40, 40);
+  background-color: rgb(43, 40, 40); /* #aa53f1af */
   animation: scaleIn 0.5s linear both;
+  /* transition: transform 0.3s ease-in-out; */
 }
 
-.showContainer:hover {
+.movieContainer:hover {
   outline: 2px solid rgb(191, 0, 255);
   box-shadow: 0px 0px 15px rgb(207, 67, 250);
+  /* transform: scale(1.1, 1.1); */
 }
 
 .textContent {
@@ -65,14 +41,14 @@ form {
 
 .poster {
   width: 120px;
-  height: 180px;
+  height: auto;
   object-fit: cover;
   object-position: center;
   border-top-left-radius: 8px;
   border-bottom-left-radius: 8px;
 }
 
-.showName {
+.movieTitle {
   width: 100%;
   height: fit-content;
   font-size: 15px;
@@ -100,7 +76,7 @@ form {
 
 @keyframes scaleIn {
   0% {
-    transform: scale(0.1, 0.1);
+    transform: scale(0, 0);
     opacity: 0;
   }
   100% {

@@ -13,8 +13,8 @@
 
 .popupTrailer {
   position: absolute;
-  width: 854px;
-  height: 480px;
+  width: 814px;
+  height: 440px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
