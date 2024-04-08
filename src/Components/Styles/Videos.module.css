@@ -1,0 +1,50 @@
+.video-container {
+  width: 100%;
+  height: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  background-color: #ffffff;
+  padding: 20px 50px;
+}
+
+.videoHeader {
+  color: black;
+}
+
+.videoSelection {
+  display: inline-block;
+  font-size: 0.8em;
+  color: grey;
+  margin-left: 10px;
+}
+
+.videoSelection span {
+  margin: 0 10px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  padding-bottom: 2px;
+}
+
+.video-wrapper {
+  width: 100%;
+  height: 240px;
+  overflow-x: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 15px;
+  padding: 5px;
+}
+
+.video {
+  border: none;
+  width: 350px;
+  height: 195px;
+  transition: all 0.2s ease-in-out;
+}
+
+.video:hover {
+  filter: brightness(90%);
+  transform: scale(1.01, 1.01);
+}
