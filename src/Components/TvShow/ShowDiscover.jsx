@@ -4,12 +4,12 @@ import styles from "../Styles/ShowDiscover.module.css";
 import { Button } from "@mui/material";
 import Loading from "../Loading";
 import defaultPoster from "../Images/defaultPoster.jpg";
+import ScrollButton from "../ScrollButton";
 
 const token = `${process.env.REACT_APP_TOKEN}`;
 
 export default function ShowDiscover() {
   const [config, setConfig] = useState({});
-  // const [userInput, setUserInput] = useState("");
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
@@ -76,27 +76,6 @@ export default function ShowDiscover() {
     }
   }
 
-  // function handleChange(e) {
-  //   setUserInput(e.target.value);
-  //   // console.log(userInput);
-  // }
-
-  // async function handleSubmit(e) {
-  //   e.preventDefault();
-  //   const res = await fetch(
-  //     `https://api.themoviedb.org/3/search/multi?query=${userInput}&language=en-US&page=1`,
-  //     {
-  //       headers: {
-  //         Authorization: token,
-  //       },
-  //     }
-  //   );
-  //   const resData = await res.json();
-  //   // console.log(resData);
-
-  //   setUserInput("");
-  // }
-
   function handleClickMore(e) {
     e.preventDefault();
     setShowSpinner(true);
@@ -106,20 +85,6 @@ export default function ShowDiscover() {
 
   return (
     <>
-      {/* <form onSubmit={handleSubmit}>
-        <input
-          placeholder="Search for a movie, tv show, person..."
-          onChange={handleChange}
-          value={userInput}
-          type="text"
-          className={styles.input}
-          name="userInput"
-        />
-        <button type="submit" className={styles.submitBtn}>
-          Sumbit
-        </button>
-      </form> */}
-
       <h2 style={{ textAlign: "center", margin: "10px 0" }}>Popular Shows</h2>
       <div className={styles.container}>
         {loading && !data.results ? (
@@ -195,6 +160,7 @@ export default function ShowDiscover() {
           </>
         )}
       </div>
+      <ScrollButton />
     </>
   );
 }

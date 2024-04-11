@@ -1,6 +1,6 @@
 .recContainer {
   width: 100%;
-  height: fit-content;
+  max-height: 380px;
   background-color: white;
   padding: 20px 50px;
   margin-bottom: 20px;
@@ -16,7 +16,7 @@
   overflow-x: scroll;
   overflow-y: hidden;
   margin-top: 20px;
-  padding: 10px 0;
+  padding: 10px;
 }
 
 .wrapper a {
@@ -31,4 +31,9 @@
   height: 180px;
   border-radius: 8px;
   box-shadow: 0 0 5px black;
+  transition: transform 0.1s linear;
+}
+
+.showImg:hover {
+  transform: scale(1.05, 1.05);
 }
