@@ -33,7 +33,7 @@ export default function RecommendShows({ config, id, data }) {
   return (
     <>
       <div className={styles.recContainer}>
-        <h2 style={{ color: "black" }}>Recommendations</h2>
+        <h2>Recommendations</h2>
         {recData && recData.results && recData.results.length > 0 ? (
           <div className={styles.wrapper}>
             {recData &&
@@ -66,7 +66,7 @@ export default function RecommendShows({ config, id, data }) {
               })}
           </div>
         ) : (
-          <p style={{ color: "black", paddingBottom: "20px" }}>
+          <p style={{ color: "white", paddingBottom: "20px" }}>
             We don't have enough data to suggest any movies based on{" "}
             {data && data.name}.
           </p>

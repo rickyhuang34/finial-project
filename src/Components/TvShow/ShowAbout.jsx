@@ -5,13 +5,7 @@ import React from "react";
 export default function ShowAbout({ data, config }) {
   return (
     <div className={styles.container}>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          width: "80%",
-        }}
-      >
+      <div className={styles.castWrapper}>
         <h3>Top Cast</h3>
         <div className={styles.castContainer}>
           {data.credits &&
@@ -52,12 +46,14 @@ export default function ShowAbout({ data, config }) {
           <strong>Status</strong>
           <br />
           {data && data.status}
+          <hr style={{ width: "150px" }} />
         </li>
 
         <li key="stats-2">
           <strong>Last Air Date</strong>
           <br />
           {data && new Date(data.last_air_date).toLocaleDateString("en-US")}
+          <hr style={{ width: "150px" }} />
         </li>
         {data && data.created_by && data.created_by.length > 0 ? (
           <li key="stats-3">
@@ -71,6 +67,7 @@ export default function ShowAbout({ data, config }) {
                   <br />
                 </React.Fragment>
               ))}
+            <hr style={{ width: "150px" }} />
           </li>
         ) : null}
       </ul>
