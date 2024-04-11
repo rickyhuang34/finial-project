@@ -103,13 +103,15 @@ export default function ShowGenre() {
       {genreList &&
         genreList.genres &&
         genreList.genres.map((genre) => {
-          return genre.id == genreid ? (
-            <h1 style={{ textAlign: "center", margin: "20px 0 10px" }}>
+          return genre.id === Number(genreid) ? (
+            <h1
+              key={genre.id}
+              style={{ textAlign: "center", margin: "20px 0 10px" }}
+            >
               {genre.name} Shows
             </h1>
           ) : null;
         })}
-
       <div className={styles.container}>
         {loading && !data.results ? (
           <Loading />

@@ -7,6 +7,7 @@ import "slick-carousel/slick/slick-theme.css";
 import "./Styles/TrendingSlick.css";
 import { Skeleton } from "@mui/material";
 import SelectMovieTv from "./SelectMovieTv";
+import Badge from "@mui/material/Badge";
 
 const token = `${process.env.REACT_APP_TOKEN}`;
 
@@ -19,6 +20,7 @@ export default function Trending({ setId }) {
   const [loading, setLoading] = useState(false);
   const [config, setConfig] = useState({});
   const backgroundRef = useRef();
+  const trendingHeaderRef = useRef();
 
   useEffect(() => {
     trendingAll();
@@ -165,16 +167,20 @@ export default function Trending({ setId }) {
   function handleDayClick() {
     if (movieActive) {
       trendingMovieDay();
+      trendingHeaderRef.current.textContent = "TRENDING MOVIES - DAY";
     } else {
       trendingTvDay();
+      trendingHeaderRef.current.textContent = "TRENDING SHOWS - DAY";
     }
   }
 
   function handleWeekClick() {
     if (movieActive) {
       trendingMovieWeek();
+      trendingHeaderRef.current.textContent = "TRENDING MOVIES - WEEK";
     } else {
       trendingTvWeek();
+      trendingHeaderRef.current.textContent = "TRENDING SHOWS - WEEK";
     }
   }
 
@@ -183,8 +189,10 @@ export default function Trending({ setId }) {
     setTvActive(false);
     if (onDayFocus) {
       trendingMovieDay();
+      trendingHeaderRef.current.textContent = "TRENDING MOVIES - DAY";
     } else {
       trendingMovieWeek();
+      trendingHeaderRef.current.textContent = "TRENDING MOVIES - WEEK";
     }
   }
 
@@ -193,8 +201,10 @@ export default function Trending({ setId }) {
     setTvActive(true);
     if (onDayFocus) {
       trendingTvDay();
+      trendingHeaderRef.current.textContent = "TRENDING SHOWS - DAY";
     } else {
       trendingTvWeek();
+      trendingHeaderRef.current.textContent = "TRENDING SHOWS - WEEK";
     }
   }
 
@@ -221,7 +231,9 @@ export default function Trending({ setId }) {
       <div className={styles.container} ref={backgroundRef}></div>
       <div className={styles.wrapper} style={{ color: "black" }}>
         <div className={styles.top}>
-          <h2 style={{ paddingTop: "8px" }}>TRENDING</h2>
+          <h2 style={{ paddingTop: "8px" }} ref={trendingHeaderRef}>
+            TRENDING - ALL
+          </h2>
 
           <SelectMovieTv
             movieClick={handleMoviesBtnClick}
@@ -269,20 +281,25 @@ export default function Trending({ setId }) {
                       style={{ display: "block", width: "100px" }}
                       key={el.id}
                     >
-                      <img
-                        onMouseEnter={function something() {
-                          handleHover(i);
-                        }}
-                        key={el.id}
-                        className={styles.movieImg}
-                        src={`${config.baseURL}${config.posterSize}${el.poster_path}`}
-                        alt={el.title}
-                        style={{
-                          width: "150px",
-                          height: "auto",
-                          borderRadius: "8px",
-                        }}
-                      />
+                      <Badge
+                        badgeContent={Math.round(el.vote_average * 10) / 10}
+                        color="primary"
+                      >
+                        <img
+                          onMouseEnter={function something() {
+                            handleHover(i);
+                          }}
+                          key={el.id}
+                          className={styles.movieImg}
+                          src={`${config.baseURL}${config.posterSize}${el.poster_path}`}
+                          alt={el.title}
+                          style={{
+                            width: "150px",
+                            height: "auto",
+                            borderRadius: "8px",
+                          }}
+                        />
+                      </Badge>
                     </Link>
                   );
                 } else {
@@ -292,20 +309,25 @@ export default function Trending({ setId }) {
                       style={{ display: "block", width: "100px" }}
                       key={el.id}
                     >
-                      <img
-                        onMouseEnter={function something() {
-                          handleHover(i);
-                        }}
-                        key={el.id}
-                        className={styles.movieImg}
-                        src={`${config.baseURL}${config.posterSize}${el.poster_path}`}
-                        alt={el.name}
-                        style={{
-                          width: "150px",
-                          height: "auto",
-                          borderRadius: "8px",
-                        }}
-                      />
+                      <Badge
+                        badgeContent={Math.round(el.vote_average * 10) / 10}
+                        color="primary"
+                      >
+                        <img
+                          onMouseEnter={function something() {
+                            handleHover(i);
+                          }}
+                          key={el.id}
+                          className={styles.movieImg}
+                          src={`${config.baseURL}${config.posterSize}${el.poster_path}`}
+                          alt={el.name}
+                          style={{
+                            width: "150px",
+                            height: "auto",
+                            borderRadius: "8px",
+                          }}
+                        />
+                      </Badge>
                     </Link>
                   );
                 }
@@ -314,46 +336,6 @@ export default function Trending({ setId }) {
           </div>
         )}
       </div>
-      {/* <div className={styles.movieTvshow}>
-        <img
-          src={movieColorIcon}
-          alt="movie"
-          onClick={handleMoviesBtnClick}
-          className={styles.movieIcon}
-        />
-
-        <img
-          src={tvColorIcon}
-          alt="tv-show"
-          onClick={handleTvClick}
-          className={styles.tvIcon}
-        />
-      </div> */}
-
-      {/* <div className={styles["toggle-tab"]}>
-        <button
-          onClick={handleDayClick}
-          onFocus={handleDayFocus}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-          className={styles.day}
-        >
-          Day
-        </button>
-        <button
-          onClick={handleWeekClick}
-          onFocus={handleWeekFocus}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-          style={{
-            backgroundColor: onWeekFocus ? "red" : "black",
-            boxShadow: onWeekFocus ? "2px 2px 10px black inset" : "none",
-          }}
-          className={styles.week}
-        >
-          Week
-        </button>
-      </div> */}
     </>
   );
 }

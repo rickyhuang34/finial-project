@@ -1,11 +1,29 @@
 import { useState } from "react";
 import styles from "./Styles/Navbar.module.css";
 import { Link } from "react-router-dom";
+import { useAuth } from "../context/useAuth";
+import { Menu, MenuItem, Avatar, IconButton, Button } from "@mui/material";
+import { deepOrange } from "@mui/material/colors";
 
 export default function Navbar() {
-  const [active, setActive] = useState(true);
+  const { user, signInWithGoogle, logout } = useAuth();
+  const [anchorEl, setAnchorEl] = useState();
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
-  function isActive() {}
+  const handleGoogleLogin = async () => {
+    try {
+      await signInWithGoogle();
+      console.log("success");
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
 
   return (
     <nav className={styles["nav-bar"]}>
@@ -16,23 +34,81 @@ export default function Navbar() {
           alt="logo"
         />
       </Link>
-      <ul className={styles.list}>
-        <li key="home">
-          <Link to="/" onClick={isActive}>
-            Home
-          </Link>
-        </li>
-        <li>
-          <Link to="/movies" onClick={isActive}>
-            Movies
-          </Link>
-        </li>
-        <li>
-          <Link to="/shows" onClick={isActive}>
-            TV Shows
-          </Link>
-        </li>
-      </ul>
+
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: "10px",
+          width: "400px",
+        }}
+      >
+        <ul className={styles.list}>
+          <li key="home">
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/movies">Movies</Link>
+          </li>
+          <li>
+            <Link to="/shows">TV Shows</Link>
+          </li>
+          {/* <li>
+            <Link to="/search">Search</Link>
+          </li> */}
+        </ul>
+        {user && (
+          <>
+            <IconButton onClick={handleClick}>
+              <Avatar
+                sx={{ bgcolor: deepOrange[500], width: 26, height: 26 }}
+                style={{ color: "white" }}
+                alt={user.email}
+              />
+            </IconButton>
+            <Menu
+              open={open}
+              onClick={handleClose}
+              onClose={handleClose}
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "right",
+              }}
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+            >
+              <MenuItem>
+                <Link
+                  to="/watchlist"
+                  style={{ textDecoration: "none", color: "black" }}
+                >
+                  Watchlist
+                </Link>
+              </MenuItem>
+              <MenuItem
+                onClick={logout}
+                style={{ fontFamily: "Times New Roman", color: "black" }}
+              >
+                Logout
+              </MenuItem>
+            </Menu>
+          </>
+        )}
+        {!user && (
+          <Button
+            variant="contained"
+            size="small"
+            style={{ backgroundColor: "#8a07f5", color: "white" }}
+            onClick={handleGoogleLogin}
+          >
+            Login
+          </Button>
+        )}
+      </div>
     </nav>
   );
 }

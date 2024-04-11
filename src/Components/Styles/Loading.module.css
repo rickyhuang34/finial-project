@@ -19,6 +19,7 @@
   background-size: 10px 400%;
   background-repeat: no-repeat;
   animation: matrix 1s infinite linear;
+  margin: auto 0;
 }
 
 @keyframes matrix {

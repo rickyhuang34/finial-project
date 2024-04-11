@@ -15,7 +15,7 @@ body {
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  background-attachment: fixed;
+  /* background-attachment: fixed; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -49,7 +49,7 @@ body {
   height: 95%;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-evenly;
 }
 
 ul.info {
@@ -77,6 +77,40 @@ ul.info li {
   font-style: italic;
   color: rgb(184, 184, 184);
   /* margin: 10px 0; */
+}
+
+.addToWatchlist {
+  padding: 5px;
+  width: 150px;
+  font-size: 16px;
+  color: white;
+  border: 1.5px solid white;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.2s linear;
+}
+
+.addToWatchlist:hover {
+  transform: scale(1.05, 1.05);
+  color: #499831;
+  border-color: #499831;
+}
+
+.inWatchlist {
+  padding: 5px;
+  width: 120px;
+  font-size: 16px;
+  color: #6cf542;
+  border: 1.5px solid #6cf542;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.2s linear;
+}
+
+.inWatchlist:hover {
+  transform: scale(1.05, 1.05);
+  color: #fe2222;
+  border-color: #fe2222;
 }
 
 ul.genre {

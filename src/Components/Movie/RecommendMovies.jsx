@@ -26,7 +26,7 @@ export default function RecommendMovies({ config, id, data }) {
 
       setRecData(recResult);
     } catch (error) {
-      console.log(error);
+      console.log("Recommended movies result error", error);
     }
   }
 
