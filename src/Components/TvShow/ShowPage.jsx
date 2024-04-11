@@ -2,20 +2,35 @@ import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Skeleton } from "@mui/material";
 import styles from "../Styles/ShowPage.module.css";
-import defaultImg from "../Images/defaultImg.jpg";
 import { PiTelevisionSimpleDuotone } from "react-icons/pi";
 import { BiCalendar, BiSolidStar } from "react-icons/bi";
 import { FaFilm } from "react-icons/fa";
 import ShowAbout from "./ShowAbout";
 import RecommendShows from "./RecommendShows";
+import { useAuth } from "../../context/useAuth";
+import { useFirestore } from "../../services/firestore";
+import { MdAdd, MdBookmarkAdded } from "react-icons/md";
+import { ShowVideos } from "./ShowVideos";
+import PlayShowTrailer from "./PlayShowTrailer";
 
 const token = `${process.env.REACT_APP_TOKEN}`;
 
 export default function ShowPage() {
   const [data, setData] = useState({});
   const [config, setConfig] = useState({});
+  const [trailers, setTrailers] = useState([]);
   const [loading, setLoading] = useState(false);
+
   const { id } = useParams();
+
+  const { user } = useAuth();
+  const {
+    addToWatchlist,
+    checkIfInWatchlist,
+    removeFromWatchlist,
+    alertComponent,
+  } = useFirestore();
+  const [isInWatchlist, setIsInWatchlist] = useState(false);
 
   useEffect(() => {
     getShowById();
@@ -50,15 +65,58 @@ export default function ShowPage() {
         posterSize: apiConfig.images.still_sizes[2],
         profileSize: apiConfig.images.profile_sizes[1],
       });
-      console.log(result);
-
       setData(result);
+
+      let youtubeVids = Object.values(result.videos.results);
+      setTrailers(youtubeVids);
+      // console.log(result);
     } catch (error) {
       console.log("Get show error", error);
     } finally {
       setLoading(false);
     }
   }
+
+  const handleSaveToWatchlist = async () => {
+    if (!user) {
+      alert("Login to add to watchlist");
+      return;
+    }
+
+    const watchlistData = {
+      id: data.id,
+      name: data.name,
+      poster_path: data.poster_path,
+      first_air_date: data.first_air_date,
+      vote_average: data.vote_average,
+      overview: data.overview,
+    };
+
+    // console.log(watchlistData, "data");
+    // addDocument("watchlist", watchlistData);
+
+    const dataId = data.id.toString();
+    await addToWatchlist(user.uid, dataId, watchlistData);
+    const isSetToWatchlist = await checkIfInWatchlist(user.uid, dataId);
+    setIsInWatchlist(isSetToWatchlist);
+  };
+
+  useEffect(() => {
+    if (!user) {
+      setIsInWatchlist(false);
+      return;
+    }
+
+    checkIfInWatchlist(user.uid, data.id).then((watchlistData) => {
+      setIsInWatchlist(watchlistData);
+    });
+  }, [checkIfInWatchlist, data.id, user]);
+
+  const handleRemoveFromWatchlist = async () => {
+    await removeFromWatchlist(user.uid, data.id);
+    const isSetToWatchlist = await checkIfInWatchlist(user.uid, data.id);
+    setIsInWatchlist(isSetToWatchlist);
+  };
 
   return loading ? (
     <div
@@ -175,42 +233,84 @@ export default function ShowPage() {
               <hr style={{ width: "300px" }} />
             </div>
 
+            <div style={{ display: "flex", gap: "10px" }}>
+              {data.tagline ? (
+                <p className={styles.tagline}>{data.tagline}</p>
+              ) : null}
+              <p>
+                <BiSolidStar
+                  style={{ color: "yellow", verticalAlign: "-12%" }}
+                />{" "}
+                {Math.round(data.vote_average * 10) / 10}
+              </p>
+            </div>
+
             <div>
               <h3>Overview</h3>
               <p className={styles.overview}>{data.overview}</p>
             </div>
 
-            {data.tagline ? (
-              <p className={styles.tagline}>{data.tagline}</p>
-            ) : null}
+            <div
+              style={{
+                display: "flex",
+                width: "fit-content",
+                gap: "20px",
+              }}
+            >
+              <PlayShowTrailer trailers={trailers} data={data} />
 
-            <p>
-              <BiSolidStar style={{ color: "yellow", verticalAlign: "-12%" }} />{" "}
-              {Math.round(data.vote_average * 10) / 10}
-            </p>
+              {isInWatchlist ? (
+                <div
+                  className={styles.inWatchlist}
+                  onClick={handleRemoveFromWatchlist}
+                >
+                  <MdBookmarkAdded
+                    style={{
+                      verticalAlign: "-12%",
+                    }}
+                  />{" "}
+                  In Watchlist
+                </div>
+              ) : (
+                <div
+                  onClick={handleSaveToWatchlist}
+                  className={styles.addToWatchlist}
+                >
+                  <MdAdd
+                    style={{
+                      verticalAlign: "-12%",
+                    }}
+                  />{" "}
+                  Add to Watchlist
+                </div>
+              )}
+            </div>
+
+            <div>{alertComponent}</div>
 
             <ul className={styles.genre}>
               {data.genres &&
-                data.genres.map((genre) => {
-                  return (
-                    <Link
-                      to={`/shows/genre/${genre.id}`}
-                      style={{
-                        textDecoration: "none",
-                        width: "fit-content",
-                        height: "fit-content",
-                        color: "white",
-                      }}
-                    >
-                      <li key={genre.id}>{genre.name}</li>
-                    </Link>
-                  );
-                })}
+                data.genres.map((genre) => (
+                  <Link
+                    to={`/shows/genre/${genre.id}`}
+                    key={genre.id}
+                    style={{
+                      textDecoration: "none",
+                      width: "fit-content",
+                      height: "fit-content",
+                      color: "white",
+                    }}
+                  >
+                    <li>{genre.name}</li>
+                  </Link>
+                ))}
             </ul>
           </div>
         </div>
       </div>
       <ShowAbout data={data} config={config} />
+
+      <ShowVideos data={data} />
 
       <RecommendShows config={config} id={id} data={data} />
     </>

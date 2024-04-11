@@ -3,7 +3,7 @@ import { RxCross2 } from "react-icons/rx";
 import { useState } from "react";
 import styles from "../Styles/PlayTrailer.module.css";
 
-export default function PlayTrailer({ data, trailers }) {
+export default function PlayShowTrailer({ data, trailers }) {
   const [modal, setModal] = useState(false);
 
   function handleTrailer() {
@@ -20,9 +20,10 @@ export default function PlayTrailer({ data, trailers }) {
       {modal
         ? data &&
           trailers.map((el) =>
-            (el.type === "Trailer" && el.name.includes("Official Trailer")) ||
-            el.name.includes("Trailer") ||
-            el.name.includes("OFFICIAL TRAILER") ? (
+            el.type === "Trailer" &&
+            (el.name.includes("Official Trailer") ||
+              el.name.includes("Trailer") ||
+              el.name.includes("OFFICIAL TRAILER")) ? (
               <div key={el.key} className={styles.popupTrailer}>
                 <RxCross2
                   onClick={handleTrailer}
@@ -32,7 +33,7 @@ export default function PlayTrailer({ data, trailers }) {
                 <iframe
                   className={styles.video}
                   src={`https://www.youtube.com/embed/${el.key}`}
-                  title={data.title}
+                  title={el.name}
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
                 ></iframe>
               </div>

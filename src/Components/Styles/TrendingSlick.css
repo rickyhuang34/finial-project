@@ -20,14 +20,14 @@
 }
 
 .slick-list {
-  width: 670px !important;
+  width: 680px !important;
   height: 300px !important;
   margin: 10px 20px !important;
   border-radius: 5px;
 }
 
 .slick-track {
-  width: 670px !important;
+  width: 680px !important;
   padding: 10px;
   display: flex;
 }

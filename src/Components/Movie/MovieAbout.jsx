@@ -1,5 +1,6 @@
 import styles from "../Styles/MovieAbout.module.css";
 import defaultImg from "../Images/defaultImg.jpg";
+import React from "react";
 
 export default function MovieAbout({ data, config }) {
   return (
@@ -11,16 +12,15 @@ export default function MovieAbout({ data, config }) {
           width: "80%",
         }}
       >
-        <h3 key="castheader">Cast</h3>
+        <h3 key="castheader">Top Cast</h3>
         <div className={styles.castContainer}>
           {data.credits &&
             data.credits.cast.slice(0, 10).map((ppl) => {
               return (
-                <>
+                <React.Fragment key={ppl.id}>
                   {ppl.profile_path === null ? (
                     <div className={styles.castCard}>
                       <img
-                        key={ppl.id}
                         src={`${defaultImg}`}
                         alt={ppl.name}
                         style={{
@@ -42,7 +42,7 @@ export default function MovieAbout({ data, config }) {
                       <p>{ppl.name}</p>
                     </div>
                   )}
-                </>
+                </React.Fragment>
               );
             })}
         </div>

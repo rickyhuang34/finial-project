@@ -7,6 +7,9 @@ import ShowPage from "./Components/TvShow/ShowPage.jsx";
 import Navbar from "./Components/Navbar.jsx";
 import MovieGenre from "./Components/Movie/MovieGenre.jsx";
 import ShowGenre from "./Components/TvShow/ShowGenre.jsx";
+import Watchlist from "./Components/Watchlist.jsx";
+import Protected from "./Components/routes/Protected.jsx";
+// import Search from "./Components/Search.jsx";
 
 function App() {
   return (
@@ -24,6 +27,15 @@ function App() {
           <Route path=":id" element={<ShowPage />} />
           <Route path="genre/:genreid" element={<ShowGenre />} />
         </Route>
+        {/* <Route path="/search" element={<Search />} /> */}
+        <Route
+          path="/watchlist"
+          element={
+            <Protected>
+              <Watchlist />
+            </Protected>
+          }
+        />
       </Routes>
     </>
   );

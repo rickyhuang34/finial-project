@@ -3,10 +3,13 @@ import { useParams, Link } from "react-router-dom";
 import { Skeleton } from "@mui/material";
 import styles from "../Styles/MoviePage.module.css";
 import { BiCalendar, BiSolidStar, BiTimeFive } from "react-icons/bi";
-import PlayTrailer from "./PlayTrailer";
-import Videos from "./Videos";
+import PlayMovieTrailer from "./PlayMovieTrailer";
+import MovieVideos from "./MovieVideos";
 import MovieAbout from "./MovieAbout";
 import RecommendMovies from "./RecommendMovies";
+import { MdAdd, MdBookmarkAdded } from "react-icons/md";
+import { useAuth } from "../../context/useAuth";
+import { useFirestore } from "../../services/firestore";
 
 const token = `${process.env.REACT_APP_TOKEN}`;
 
@@ -16,6 +19,15 @@ export default function MoviePage() {
   const [loading, setLoading] = useState(false);
   const [trailers, setTrailers] = useState([]);
   const { id } = useParams();
+
+  const { user } = useAuth();
+  const {
+    addToWatchlist,
+    checkIfInWatchlist,
+    removeFromWatchlist,
+    alertComponent,
+  } = useFirestore();
+  const [isInWatchlist, setIsInWatchlist] = useState(false);
 
   useEffect(() => {
     getMovieById();
@@ -54,13 +66,54 @@ export default function MoviePage() {
 
       let youtubeVids = Object.values(result.videos.results);
       setTrailers(youtubeVids);
-      console.log(result);
+      // console.log(result);
     } catch (error) {
       console.log("Get movie error", error);
     } finally {
       setLoading(false);
     }
   }
+
+  const handleSaveToWatchlist = async () => {
+    if (!user) {
+      alert("Login to add to watchlist");
+      return;
+    }
+
+    const watchlistData = {
+      id: data.id,
+      title: data.title,
+      poster_path: data.poster_path,
+      release_date: data.release_date,
+      vote_average: data.vote_average,
+      overview: data.overview,
+    };
+
+    // console.log(watchlistData, "data");
+    // addDocument("watchlist", watchlistData);
+
+    const dataId = data.id.toString();
+    await addToWatchlist(user.uid, dataId, watchlistData);
+    const isSetToWatchlist = await checkIfInWatchlist(user.uid, dataId);
+    setIsInWatchlist(isSetToWatchlist);
+  };
+
+  useEffect(() => {
+    if (!user) {
+      setIsInWatchlist(false);
+      return;
+    }
+
+    checkIfInWatchlist(user.uid, data.id).then((watchlistData) => {
+      setIsInWatchlist(watchlistData);
+    });
+  }, [checkIfInWatchlist, data.id, user]);
+
+  const handleRemoveFromWatchlist = async () => {
+    await removeFromWatchlist(user.uid, data.id);
+    const isSetToWatchlist = await checkIfInWatchlist(user.uid, data.id);
+    setIsInWatchlist(isSetToWatchlist);
+  };
 
   return loading ? (
     <div
@@ -178,26 +231,67 @@ export default function MoviePage() {
               <hr style={{ width: "300px" }} />
             </div>
 
+            <div style={{ display: "flex", gap: "10px" }}>
+              {data.tagline ? (
+                <p className={styles.tagline}>{data.tagline}</p>
+              ) : null}
+              <p>
+                <BiSolidStar
+                  style={{ color: "yellow", verticalAlign: "-12%" }}
+                />{" "}
+                {Math.round(data.vote_average * 10) / 10}
+              </p>
+            </div>
+
             <div>
               <h3>Overview</h3>
               <p className={styles.overview}>{data.overview}</p>
             </div>
 
-            {data.tagline ? (
-              <p className={styles.tagline}>{data.tagline}</p>
-            ) : null}
+            <div
+              style={{
+                display: "flex",
+                width: "fit-content",
+                gap: "20px",
+              }}
+            >
+              <PlayMovieTrailer data={data} trailers={trailers} />
 
-            <PlayTrailer data={data} trailers={trailers} />
+              {isInWatchlist ? (
+                <div
+                  className={styles.inWatchlist}
+                  onClick={handleRemoveFromWatchlist}
+                >
+                  <MdBookmarkAdded
+                    style={{
+                      verticalAlign: "-12%",
+                    }}
+                  />{" "}
+                  In Watchlist
+                </div>
+              ) : (
+                <div
+                  className={styles.addToWatchlist}
+                  onClick={handleSaveToWatchlist}
+                >
+                  <MdAdd
+                    style={{
+                      verticalAlign: "-12%",
+                    }}
+                  />{" "}
+                  Add to Watchlist
+                </div>
+              )}
+            </div>
 
-            <p>
-              <BiSolidStar style={{ color: "yellow", verticalAlign: "-12%" }} />{" "}
-              {Math.round(data.vote_average * 10) / 10}
-            </p>
+            <div>{alertComponent}</div>
+
             <ul className={styles.genre}>
               {data.genres &&
                 data.genres.map((genre) => {
                   return (
                     <Link
+                      key={genre.id}
                       to={`/movies/genre/${genre.id}`}
                       style={{
                         textDecoration: "none",
@@ -206,7 +300,7 @@ export default function MoviePage() {
                         color: "white",
                       }}
                     >
-                      <li key={genre.id}>{genre.name}</li>
+                      <li>{genre.name}</li>
                     </Link>
                   );
                 })}
@@ -217,7 +311,7 @@ export default function MoviePage() {
 
       <MovieAbout data={data} config={config} />
 
-      <Videos data={data} trailers={trailers} />
+      <MovieVideos data={data} trailers={trailers} />
 
       <RecommendMovies config={config} id={id} data={data} />
     </>
