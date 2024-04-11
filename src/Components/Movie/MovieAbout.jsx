@@ -5,13 +5,7 @@ import React from "react";
 export default function MovieAbout({ data, config }) {
   return (
     <div className={styles.container}>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          width: "80%",
-        }}
-      >
+      <div className={styles.castWrapper}>
         <h3 key="castheader">Top Cast</h3>
         <div className={styles.castContainer}>
           {data.credits &&
@@ -53,6 +47,7 @@ export default function MovieAbout({ data, config }) {
           <strong>Status</strong>
           <br />
           {data && data.status}
+          <hr style={{ width: "150px" }} />
         </li>
 
         <li key="budget">
@@ -64,6 +59,7 @@ export default function MovieAbout({ data, config }) {
                 minimumFractionDigits: 0,
               })
             : "-"}
+          <hr style={{ width: "150px" }} />
         </li>
         <li key="revenue">
           <strong>Revenue</strong>
@@ -74,6 +70,7 @@ export default function MovieAbout({ data, config }) {
                 minimumFractionDigits: 0,
               })
             : "-"}
+          <hr style={{ width: "150px" }} />
         </li>
       </ul>
     </div>
