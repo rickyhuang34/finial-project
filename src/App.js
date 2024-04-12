@@ -9,6 +9,11 @@ import MovieGenre from "./Components/Movie/MovieGenre.jsx";
 import ShowGenre from "./Components/TvShow/ShowGenre.jsx";
 import Watchlist from "./Components/Watchlist.jsx";
 import Protected from "./Components/routes/Protected.jsx";
+import Footer from "./Components/Footer/Footer.js";
+import FreeWatch from "./Components/FreeWatch/FreeWatch.js";
+import Join from "./Components/Join/Join.js";
+import Trailer from "./Components/Trailer/Trailer.js";
+
 // import Search from "./Components/Search.jsx";
 
 function App() {
@@ -37,6 +42,10 @@ function App() {
           }
         />
       </Routes>
+      <Trailer />
+      <FreeWatch />
+      <Join />
+      <Footer />
     </>
   );
 }
