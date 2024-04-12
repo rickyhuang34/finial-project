@@ -36,7 +36,6 @@ body {
 }
 
 .left {
-  /* padding: 10px 10px; */
   width: 290px;
   height: 95%;
   display: flex;
@@ -57,7 +56,7 @@ ul.info {
   align-items: center;
   gap: 10px;
   list-style-type: none;
-  width: 300px;
+  width: fit-content;
   font-size: 14px;
   color: rgb(225, 208, 245);
   padding: 5px 0;
@@ -69,13 +68,11 @@ ul.info li {
 
 .overview {
   width: 100%;
-  /* margin: 10px 0; */
 }
 
 .tagline {
   font-style: italic;
   color: rgb(184, 184, 184);
-  /* margin: 10px 0; */
 }
 
 .addToWatchlist {

@@ -228,22 +228,20 @@ export default function ShowPage() {
                     ? data.number_of_episodes + " Episodes"
                     : data.number_of_episodes + " Episode"}
                 </li>
+                <li>
+                  <BiSolidStar
+                    style={{ color: "yellow", verticalAlign: "-12%" }}
+                  />{" "}
+                  {Math.round(data.vote_average * 10) / 10}
+                </li>
               </ul>
 
-              <hr style={{ width: "300px" }} />
+              <hr style={{ width: "330px" }} />
             </div>
 
-            <div style={{ display: "flex", gap: "10px" }}>
-              {data.tagline ? (
-                <p className={styles.tagline}>{data.tagline}</p>
-              ) : null}
-              <p>
-                <BiSolidStar
-                  style={{ color: "yellow", verticalAlign: "-12%" }}
-                />{" "}
-                {Math.round(data.vote_average * 10) / 10}
-              </p>
-            </div>
+            {data.tagline ? (
+              <p className={styles.tagline}>{data.tagline}</p>
+            ) : null}
 
             <div>
               <h3>Overview</h3>

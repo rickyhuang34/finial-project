@@ -166,21 +166,25 @@ export default function Trending({ setId }) {
 
   function handleDayClick() {
     if (movieActive) {
+      setOnDayFocus(true);
       trendingMovieDay();
-      trendingHeaderRef.current.textContent = "TRENDING MOVIES - DAY";
+      trendingHeaderRef.current.textContent = "Trending Movies - Day";
     } else {
+      setOnDayFocus(true);
       trendingTvDay();
-      trendingHeaderRef.current.textContent = "TRENDING SHOWS - DAY";
+      trendingHeaderRef.current.textContent = "Trending Shows - Day";
     }
   }
 
   function handleWeekClick() {
     if (movieActive) {
+      setOnDayFocus(false);
       trendingMovieWeek();
-      trendingHeaderRef.current.textContent = "TRENDING MOVIES - WEEK";
+      trendingHeaderRef.current.textContent = "Trending Movies - Week";
     } else {
+      setOnDayFocus(false);
       trendingTvWeek();
-      trendingHeaderRef.current.textContent = "TRENDING SHOWS - WEEK";
+      trendingHeaderRef.current.textContent = "Trending Shows - Week";
     }
   }
 
@@ -189,10 +193,10 @@ export default function Trending({ setId }) {
     setTvActive(false);
     if (onDayFocus) {
       trendingMovieDay();
-      trendingHeaderRef.current.textContent = "TRENDING MOVIES - DAY";
+      trendingHeaderRef.current.textContent = "Trending Movies - Day";
     } else {
       trendingMovieWeek();
-      trendingHeaderRef.current.textContent = "TRENDING MOVIES - WEEK";
+      trendingHeaderRef.current.textContent = "Trending Movies - Week";
     }
   }
 
@@ -201,10 +205,10 @@ export default function Trending({ setId }) {
     setTvActive(true);
     if (onDayFocus) {
       trendingTvDay();
-      trendingHeaderRef.current.textContent = "TRENDING SHOWS - DAY";
+      trendingHeaderRef.current.textContent = "Trending Shows - Day";
     } else {
       trendingTvWeek();
-      trendingHeaderRef.current.textContent = "TRENDING SHOWS - WEEK";
+      trendingHeaderRef.current.textContent = "Trending Shows - Week";
     }
   }
 
@@ -232,7 +236,7 @@ export default function Trending({ setId }) {
       <div className={styles.wrapper} style={{ color: "black" }}>
         <div className={styles.top}>
           <h2 style={{ paddingTop: "8px" }} ref={trendingHeaderRef}>
-            TRENDING - ALL
+            Trending Movies - Day
           </h2>
 
           <SelectMovieTv
