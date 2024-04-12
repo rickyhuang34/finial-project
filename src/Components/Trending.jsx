@@ -23,7 +23,7 @@ export default function Trending({ setId }) {
   const trendingHeaderRef = useRef();
 
   useEffect(() => {
-    trendingAll();
+    trendingMovieDay();
   }, []);
 
   useEffect(() => {
@@ -33,42 +33,42 @@ export default function Trending({ setId }) {
         : "none";
   });
 
-  async function trendingAll() {
-    setLoading(true);
-    try {
-      const response = await fetch(
-        "https://api.themoviedb.org/3/configuration",
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
-      );
-      const result = await response.json();
+  // async function trendingAll() {
+  //   setLoading(true);
+  //   try {
+  //     const response = await fetch(
+  //       "https://api.themoviedb.org/3/configuration",
+  //       {
+  //         headers: {
+  //           Authorization: token,
+  //         },
+  //       }
+  //     );
+  //     const result = await response.json();
 
-      const res = await fetch(`https://api.themoviedb.org/3/trending/all/day`, {
-        headers: {
-          Authorization: token,
-        },
-      });
-      const data = await res.json();
+  //     const res = await fetch(`https://api.themoviedb.org/3/trending/all/day`, {
+  //       headers: {
+  //         Authorization: token,
+  //       },
+  //     });
+  //     const data = await res.json();
 
-      // File path used in getting poster img
-      setConfig({
-        baseURL: result.images.secure_base_url,
-        posterSize: result.images.still_sizes[2],
-        backdropSize: result.images.backdrop_sizes[3],
-      });
-      setResult(data.results);
-    } catch (error) {
-      console.log(
-        "Error fetching trending movies and shows of day data:",
-        error
-      );
-    } finally {
-      setLoading(false);
-    }
-  }
+  //     // File path used in getting poster img
+  //     setConfig({
+  //       baseURL: result.images.secure_base_url,
+  //       posterSize: result.images.still_sizes[2],
+  //       backdropSize: result.images.backdrop_sizes[3],
+  //     });
+  //     setResult(data.results);
+  //   } catch (error) {
+  //     console.log(
+  //       "Error fetching trending movies and shows of day data:",
+  //       error
+  //     );
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // }
 
   async function trendingMovieDay() {
     setLoading(true);
@@ -166,21 +166,25 @@ export default function Trending({ setId }) {
 
   function handleDayClick() {
     if (movieActive) {
+      setOnDayFocus(true);
       trendingMovieDay();
-      trendingHeaderRef.current.textContent = "TRENDING MOVIES - DAY";
+      trendingHeaderRef.current.textContent = "Trending Movies - Day";
     } else {
+      setOnDayFocus(true);
       trendingTvDay();
-      trendingHeaderRef.current.textContent = "TRENDING SHOWS - DAY";
+      trendingHeaderRef.current.textContent = "Trending Shows - Day";
     }
   }
 
   function handleWeekClick() {
     if (movieActive) {
+      setOnDayFocus(false);
       trendingMovieWeek();
-      trendingHeaderRef.current.textContent = "TRENDING MOVIES - WEEK";
+      trendingHeaderRef.current.textContent = "Trending Movies - Week";
     } else {
+      setOnDayFocus(false);
       trendingTvWeek();
-      trendingHeaderRef.current.textContent = "TRENDING SHOWS - WEEK";
+      trendingHeaderRef.current.textContent = "Trending Shows - Week";
     }
   }
 
@@ -189,10 +193,10 @@ export default function Trending({ setId }) {
     setTvActive(false);
     if (onDayFocus) {
       trendingMovieDay();
-      trendingHeaderRef.current.textContent = "TRENDING MOVIES - DAY";
+      trendingHeaderRef.current.textContent = "Trending Movies - Day";
     } else {
       trendingMovieWeek();
-      trendingHeaderRef.current.textContent = "TRENDING MOVIES - WEEK";
+      trendingHeaderRef.current.textContent = "Trending Movies - Week";
     }
   }
 
@@ -201,10 +205,10 @@ export default function Trending({ setId }) {
     setTvActive(true);
     if (onDayFocus) {
       trendingTvDay();
-      trendingHeaderRef.current.textContent = "TRENDING SHOWS - DAY";
+      trendingHeaderRef.current.textContent = "Trending Shows - Day";
     } else {
       trendingTvWeek();
-      trendingHeaderRef.current.textContent = "TRENDING SHOWS - WEEK";
+      trendingHeaderRef.current.textContent = "Trending Shows - Week";
     }
   }
 
@@ -232,7 +236,7 @@ export default function Trending({ setId }) {
       <div className={styles.wrapper} style={{ color: "black" }}>
         <div className={styles.top}>
           <h2 style={{ paddingTop: "8px" }} ref={trendingHeaderRef}>
-            TRENDING - ALL
+            Trending Movies - Day
           </h2>
 
           <SelectMovieTv
