@@ -85,7 +85,7 @@ export default function ShowDiscover() {
 
   return (
     <>
-      <h2 style={{ textAlign: "center", margin: "10px 0" }}>Popular Shows</h2>
+      <h2 className={styles.header}>Popular Shows</h2>
       <div className={styles.container}>
         {loading && !data.results ? (
           <Loading />

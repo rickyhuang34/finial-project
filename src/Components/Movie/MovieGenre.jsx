@@ -104,10 +104,7 @@ export default function MovieGenre() {
         genreList.genres &&
         genreList.genres.map((genre) => {
           return genre.id === Number(genreid) ? (
-            <h1
-              key={genre.id}
-              style={{ textAlign: "center", margin: "20px 0 10px" }}
-            >
+            <h1 key={genre.id} className={styles.header}>
               {genre.name} Movies
             </h1>
           ) : null;

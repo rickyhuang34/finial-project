@@ -200,7 +200,7 @@ export default function ShowPage() {
             />
           </div>
           <div className={styles.right}>
-            <div>
+            <div className={styles.titleSection}>
               <h2 className={styles.name}>
                 {data.name}{" "}
                 <span style={{ color: "#bababa", fontSize: "0.9em" }}>
@@ -236,19 +236,20 @@ export default function ShowPage() {
                 </li>
               </ul>
 
-              <hr style={{ width: "330px" }} />
+              <hr />
             </div>
 
             {data.tagline ? (
               <p className={styles.tagline}>{data.tagline}</p>
             ) : null}
 
-            <div>
+            <div className={styles.overviewContainer}>
               <h3>Overview</h3>
               <p className={styles.overview}>{data.overview}</p>
             </div>
 
             <div
+              className={styles.buttons}
               style={{
                 display: "flex",
                 width: "fit-content",

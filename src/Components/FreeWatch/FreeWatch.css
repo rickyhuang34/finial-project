@@ -1,6 +1,6 @@
 .free_container {
   width: 100%;
-  padding: 10px 50px;
+  padding: 20px 50px;
   background-position: 50% 200px;
   background-size: 1400px;
   background-repeat: no-repeat;
@@ -110,7 +110,7 @@
 
 .movietext {
   color: gray;
-  margin-top: -9px;
+  margin-top: 0px; /* -9*/
 }
 
 @media screen and (max-width: 700px) {

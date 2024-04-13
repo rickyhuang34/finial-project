@@ -9,8 +9,7 @@ import MovieGenre from "./Components/Movie/MovieGenre.jsx";
 import ShowGenre from "./Components/TvShow/ShowGenre.jsx";
 import Watchlist from "./Components/Watchlist.jsx";
 import Protected from "./Components/routes/Protected.jsx";
-
-// import Search from "./Components/Search.jsx";
+// import Search from "./Components/Search/Search.js";
 
 function App() {
   return (

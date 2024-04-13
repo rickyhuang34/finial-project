@@ -17,11 +17,7 @@ export default function MovieAbout({ data, config }) {
                       <img
                         src={`${defaultImg}`}
                         alt={ppl.name}
-                        style={{
-                          width: "120px",
-                          height: "180px",
-                          objectFit: "cover",
-                        }}
+                        className={styles.defaultImg}
                       />
                       <p>{ppl.name}</p>
                     </div>
@@ -31,7 +27,7 @@ export default function MovieAbout({ data, config }) {
                         key={ppl.id}
                         src={`${config.baseURL}${config.posterSize}${ppl.profile_path}`}
                         alt={ppl.name}
-                        style={{ width: "120px", height: "180px" }}
+                        className={styles.castImg}
                       />
                       <p>{ppl.name}</p>
                     </div>
@@ -47,7 +43,7 @@ export default function MovieAbout({ data, config }) {
           <strong>Status</strong>
           <br />
           {data && data.status}
-          <hr style={{ width: "150px" }} />
+          <hr />
         </li>
 
         <li key="budget">
@@ -59,7 +55,7 @@ export default function MovieAbout({ data, config }) {
                 minimumFractionDigits: 0,
               })
             : "-"}
-          <hr style={{ width: "150px" }} />
+          <hr />
         </li>
         <li key="revenue">
           <strong>Revenue</strong>
@@ -70,7 +66,7 @@ export default function MovieAbout({ data, config }) {
                 minimumFractionDigits: 0,
               })
             : "-"}
-          <hr style={{ width: "150px" }} />
+          <hr />
         </li>
       </ul>
     </div>

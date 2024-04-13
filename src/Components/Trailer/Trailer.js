@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Trailer.css";
+
+const apiKey = `${process.env.REACT_APP_API_KEY}`;
+
 const Trailer = () => {
   const [movies, setMovies] = useState([]);
   const [filterIndex, setFilterIndex] = useState(0);
@@ -9,11 +12,11 @@ const Trailer = () => {
   const [hovered, setHovered] = useState(null);
 
   const filters = [
-    "https://api.themoviedb.org/3/movie/popular?api_key=f854fbc111ab3eedf1b405c45b5f1ac2&language=en",
-    "https://api.themoviedb.org/3/discover/movie?api_key=f854fbc111ab3eedf1b405c45b5f1ac2&sort_by=popularity.desc&with_watch_providers=8%7C337%7C386%7C15&watch_region=US&language=en",
-    "https://api.themoviedb.org/3/tv/airing_today?api_key=f854fbc111ab3eedf1b405c45b5f1ac2&language=en",
-    "https://api.themoviedb.org/3/discover/movie?api_key=f854fbc111ab3eedf1b405c45b5f1ac2&region=US&with_watch_monetization_types=rent",
-    "https://api.themoviedb.org/3/discover/movie?api_key=f854fbc111ab3eedf1b405c45b5f1ac2&region=US&with_release_type=3%7C2",
+    `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en`,
+    `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&sort_by=popularity.desc&with_watch_providers=8%7C337%7C386%7C15&watch_region=US&language=en`,
+    `https://api.themoviedb.org/3/tv/airing_today?api_key=${apiKey}&language=en`,
+    `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&region=US&with_watch_monetization_types=rent`,
+    `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&region=US&with_release_type=3%7C2`,
   ];
 
   useEffect(() => {
@@ -26,11 +29,11 @@ const Trailer = () => {
           let res;
           if (filterIndex === 2) {
             res = await axios.get(
-              `https://api.themoviedb.org/3/tv/${movieId}/videos?api_key=f854fbc111ab3eedf1b405c45b5f1ac2&language=en`
+              `https://api.themoviedb.org/3/tv/${movieId}/videos?api_key=${apiKey}&language=en`
             );
           } else {
             res = await axios.get(
-              `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=f854fbc111ab3eedf1b405c45b5f1ac2&language=en`
+              `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${apiKey}&language=en`
             );
           }
           const trailers = res.data.results;
@@ -38,7 +41,7 @@ const Trailer = () => {
             let title;
             if (filterIndex === 2) {
               const tvShowResponse = await axios.get(
-                `https://api.themoviedb.org/3/tv/${movieId}?api_key=f854fbc111ab3eedf1b405c45b5f1ac2&language=en`
+                `https://api.themoviedb.org/3/tv/${movieId}?api_key=${apiKey}&language=en`
               );
               title = tvShowResponse.data.name;
             } else {
@@ -83,6 +86,7 @@ const Trailer = () => {
             allowFullScreen
             className="trailer_modal_iframe"
             loading="lazy"
+            title={trailer.title}
           ></iframe>
         </div>
       </div>
@@ -145,7 +149,7 @@ const Trailer = () => {
       </div>
       <div className="trailer_card_container">
         {movieTrailers.map((trailer) => {
-          console.log(trailer);
+          // console.log(trailer);
           return (
             <div
               className={`trailer_movie_card ${selectedTrailer && "clickable"}`}
@@ -174,6 +178,7 @@ const Trailer = () => {
                   <img
                     src="https://cdn.pixabay.com/photo/2021/10/09/12/45/play-button-6694069_1280.png"
                     className="play_button"
+                    alt="Play button"
                   />
                 </div>
               </div>

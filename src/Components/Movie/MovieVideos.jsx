@@ -27,10 +27,7 @@ export default function MovieVideos({ trailers, data }) {
       {data && data.videos && data.videos.results.length > 0 ? (
         <div className={styles["video-container"]}>
           <h2 className={styles.videoHeader}>
-            Videos{" "}
-            <span style={{ fontSize: "0.8em", color: "rgb(148, 147, 147)" }}>
-              {trailers.length}
-            </span>
+            Videos {trailers.length}
             {trailers && (
               <div className={styles.videoSelection}>
                 <span
@@ -87,7 +84,7 @@ export default function MovieVideos({ trailers, data }) {
                         : "none",
                   }}
                 >
-                  Behind the Scenes {btsCount}
+                  BTS {btsCount}
                 </span>
               </div>
             )}

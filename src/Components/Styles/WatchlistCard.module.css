@@ -21,6 +21,17 @@
   transform: scale(1.01, 1.01);
 }
 
+.poster {
+  min-width: 150px;
+  height: 200px;
+  object-fit: contain;
+}
+
+.left {
+  width: fit-content;
+  height: fit-content;
+}
+
 .right {
   width: 70%;
   min-height: 200px;
@@ -29,4 +40,63 @@
   justify-content: space-evenly;
   gap: 10px;
   padding: 10px 0;
+}
+
+.dateAndRating {
+  display: flex;
+  gap: 20px;
+}
+
+.date {
+  font-size: 18px;
+  color: green;
+}
+
+.removeBtn {
+  color: red;
+  font-size: 25px;
+  vertical-align: -20%;
+  z-index: 5;
+  cursor: pointer;
+}
+
+/* Tablet screen size */
+@media only screen and (min-width: 601px) and (max-width: 880px) {
+}
+
+/* Mobile screen size */
+@media only screen and (max-width: 600px) {
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: fit-content;
+    width: 150px;
+    margin: 0;
+  }
+
+  .poster {
+    min-width: 100px;
+    height: 150px;
+  }
+
+  .dateAndRating {
+    display: none;
+  }
+
+  .overview {
+    display: none;
+  }
+
+  .right {
+    width: 100%;
+    min-height: fit-content;
+    padding: 0;
+  }
+
+  .right h3 {
+    font-size: 16px;
+    height: fit-content;
+  }
 }

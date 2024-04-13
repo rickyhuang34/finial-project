@@ -1,7 +1,7 @@
 .recContainer {
   width: 100%;
   max-height: 480px;
-  background-color: rgb(13, 13, 13);
+  background-color: rgb(13, 13, 13); /* rgb(13, 13, 13)*/
   margin-top: 20px;
   padding: 30px;
   display: flex;
@@ -10,9 +10,14 @@
   align-items: center;
 }
 
+.recContainer h2 {
+  color: white;
+}
+
 .wrapper {
   background-color: rgb(27, 27, 27);
-  width: 850px;
+  min-width: 200px;
+  max-width: 90%;
   height: fit-content;
   display: flex;
   justify-content: flex-start;

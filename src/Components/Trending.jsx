@@ -33,43 +33,6 @@ export default function Trending({ setId }) {
         : "none";
   });
 
-  // async function trendingAll() {
-  //   setLoading(true);
-  //   try {
-  //     const response = await fetch(
-  //       "https://api.themoviedb.org/3/configuration",
-  //       {
-  //         headers: {
-  //           Authorization: token,
-  //         },
-  //       }
-  //     );
-  //     const result = await response.json();
-
-  //     const res = await fetch(`https://api.themoviedb.org/3/trending/all/day`, {
-  //       headers: {
-  //         Authorization: token,
-  //       },
-  //     });
-  //     const data = await res.json();
-
-  //     // File path used in getting poster img
-  //     setConfig({
-  //       baseURL: result.images.secure_base_url,
-  //       posterSize: result.images.still_sizes[2],
-  //       backdropSize: result.images.backdrop_sizes[3],
-  //     });
-  //     setResult(data.results);
-  //   } catch (error) {
-  //     console.log(
-  //       "Error fetching trending movies and shows of day data:",
-  //       error
-  //     );
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // }
-
   async function trendingMovieDay() {
     setLoading(true);
     try {
@@ -299,7 +262,7 @@ export default function Trending({ setId }) {
                           alt={el.title}
                           style={{
                             width: "150px",
-                            height: "auto",
+                            height: "225px",
                             borderRadius: "8px",
                           }}
                         />
@@ -327,7 +290,7 @@ export default function Trending({ setId }) {
                           alt={el.name}
                           style={{
                             width: "150px",
-                            height: "auto",
+                            height: "225px",
                             borderRadius: "8px",
                           }}
                         />

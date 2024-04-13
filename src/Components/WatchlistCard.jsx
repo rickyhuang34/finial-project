@@ -52,11 +52,7 @@ export const WatchlistCard = ({ item, setWatchlist }) => {
                 <img
                   alt={item.id}
                   src={`${config.baseURL}${config.posterSize}${item.poster_path}`}
-                  style={{
-                    minWidth: "150px",
-                    height: "200px",
-                    objectFit: "contain",
-                  }}
+                  className={styles.poster}
                 />
               </Link>
             </div>
@@ -73,21 +69,15 @@ export const WatchlistCard = ({ item, setWatchlist }) => {
                     }}
                   >
                     <FaSquareMinus
-                      style={{
-                        color: "red",
-                        fontSize: "25px",
-                        verticalAlign: "-20%",
-                        zIndex: "5",
-                        cursor: "pointer",
-                      }}
+                      className={styles.removeBtn}
                       onClick={handleRemoveClick}
                     />
                   </div>
                 </Tooltip>
               </h3>
 
-              <div style={{ display: "flex", gap: "20px" }}>
-                <p style={{ fontSize: "18px", color: "green" }}>
+              <div className={styles.dateAndRating}>
+                <p className={styles.date}>
                   {new Date(item.release_date).getFullYear()}
                 </p>
                 <p>
@@ -98,21 +88,17 @@ export const WatchlistCard = ({ item, setWatchlist }) => {
                 </p>
               </div>
 
-              <p>{item.overview}</p>
+              <p className={styles.overview}>{item.overview}</p>
             </div>
           </>
         ) : (
           <>
-            <div>
+            <div className={styles.left}>
               <Link to={`/shows/${item.id}`}>
                 <img
                   alt={item.id}
                   src={`${config.baseURL}${config.posterSize}${item.poster_path}`}
-                  style={{
-                    minWidth: "150px",
-                    height: "200px",
-                    objectFit: "contain",
-                  }}
+                  className={styles.poster}
                 />
               </Link>
             </div>
@@ -129,21 +115,15 @@ export const WatchlistCard = ({ item, setWatchlist }) => {
                     }}
                   >
                     <FaSquareMinus
-                      style={{
-                        color: "red",
-                        fontSize: "25px",
-                        verticalAlign: "-20%",
-                        zIndex: "5",
-                        cursor: "pointer",
-                      }}
+                      className={styles.removeBtn}
                       onClick={handleRemoveClick}
                     />
                   </div>
                 </Tooltip>
               </h3>
 
-              <div style={{ display: "flex", gap: "20px" }}>
-                <p style={{ fontSize: "18px", color: "green" }}>
+              <div className={styles.dateAndRating}>
+                <p className={styles.date}>
                   {new Date(item.first_air_date).getFullYear()}
                 </p>
                 <p>
@@ -154,7 +134,7 @@ export const WatchlistCard = ({ item, setWatchlist }) => {
                 </p>
               </div>
 
-              <p>{item.overview}</p>
+              <p className={styles.overview}>{item.overview}</p>
             </div>
           </>
         )}
