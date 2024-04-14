@@ -83,7 +83,7 @@ export default function MovieDiscover() {
 
   return (
     <>
-      <h2 style={{ textAlign: "center", margin: "10px 0" }}>Popular Movies</h2>
+      <h2 className={styles.header}>Popular Movies</h2>
 
       <div className={styles.container}>
         {loading && !data.results ? (

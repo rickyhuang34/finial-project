@@ -36,7 +36,6 @@ body {
 }
 
 .left {
-  /* padding: 10px 10px; */
   width: 290px;
   height: 95%;
   display: flex;
@@ -51,13 +50,17 @@ body {
   justify-content: space-evenly;
 }
 
+.titleSection hr {
+  width: 300px;
+}
+
 ul.info {
   display: flex;
   justify-content: flex-start;
   align-items: center;
   gap: 10px;
   list-style-type: none;
-  width: 300px;
+  width: fit-content;
   font-size: 14px;
   color: rgb(225, 208, 245);
   padding: 5px 0;
@@ -69,18 +72,23 @@ ul.info li {
 
 .overview {
   width: 100%;
-  /* margin: 10px 0; */
+  padding: 5px 0;
 }
 
 .tagline {
   font-style: italic;
   color: rgb(184, 184, 184);
-  /* margin: 10px 0; */
+}
+
+.buttons {
+  display: flex;
+  width: fit-content;
+  gap: 20px;
 }
 
 .addToWatchlist {
   padding: 5px;
-  width: 150px;
+  width: 160px;
   font-size: 16px;
   color: white;
   border: 1.5px solid white;
@@ -91,8 +99,8 @@ ul.info li {
 
 .addToWatchlist:hover {
   transform: scale(1.05, 1.05);
-  color: #499831;
-  border-color: #499831;
+  color: #71ea4c;
+  border-color: #71ea4c;
 }
 
 .inWatchlist {
@@ -118,7 +126,7 @@ ul.genre {
   align-items: center;
   flex-wrap: wrap;
   gap: 5px;
-  font-size: 13px;
+  font-size: 12px;
   padding: 5px 0;
 }
 
@@ -136,62 +144,81 @@ ul.genre li:hover {
   box-shadow: 0 0 4px white;
 }
 
-/* ===== Youtube Trailer & Videos ===== */
+/* Tablet screen size */
+@media only screen and (min-width: 601px) and (max-width: 880px) {
+  .backdrop {
+    width: 100%;
+    max-height: 600px;
+    min-height: 100%;
+  }
 
-.video-container {
-  width: 100%;
-  height: 400px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  /* align-items: center; */
-  background-color: #ffffff;
-  padding: 20px 50px;
+  .left {
+    width: 290px;
+    height: 95%;
+  }
+
+  .right {
+    width: 620px;
+    height: 95%;
+  }
 }
 
-.videoHeader {
-  /* writing-mode: vertical-lr; */
-  /* transform: scale(-1); */
-  /* margin-left: 10px; */
-  /* word-spacing: 10px; */
-  /* text-align: center; */
-  /* height: 100%; */
-  /* letter-spacing: 10px; */
-  color: black;
-  margin-bottom: 20px;
-}
+/* Mobile screen size */
+@media only screen and (max-width: 600px) {
+  .backdrop {
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 
-.videoSelection {
-  display: inline-block;
-  font-size: 0.6em;
-  color: grey;
-  margin-left: 10px;
-}
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
 
-.videoSelection span {
-  margin: 0 5px;
-}
+  .left {
+    width: 290px;
+    height: fit-content;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  .right {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-start;
+  }
 
-.video-wrapper {
-  width: 100%;
-  height: 240px;
-  /* overflow-y: hidden; */
-  overflow-x: auto;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  gap: 15px;
-  padding: 5px;
-}
+  .titleSection hr {
+    width: 99%;
+  }
 
-.video {
-  border: none;
-  width: 350px;
-  height: 195px;
-  transition: all 0.2s ease-in-out;
-}
+  .info {
+    display: flex;
+    flex-wrap: wrap;
+  }
 
-.video:hover {
-  filter: brightness(90%);
-  transform: scale(1.01, 1.01);
+  .overview {
+    padding: 0;
+  }
+
+  .titleSection,
+  .genre,
+  .tagline,
+  .overviewContainer,
+  .buttons {
+    padding: 8px 0;
+  }
 }

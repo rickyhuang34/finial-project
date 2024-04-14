@@ -23,7 +23,7 @@ export default function Trending({ setId }) {
   const trendingHeaderRef = useRef();
 
   useEffect(() => {
-    trendingAll();
+    trendingMovieDay();
   }, []);
 
   useEffect(() => {
@@ -32,43 +32,6 @@ export default function Trending({ setId }) {
         ? `url(${config.baseURL}${config.backdropSize}${result[0].backdrop_path})`
         : "none";
   });
-
-  async function trendingAll() {
-    setLoading(true);
-    try {
-      const response = await fetch(
-        "https://api.themoviedb.org/3/configuration",
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
-      );
-      const result = await response.json();
-
-      const res = await fetch(`https://api.themoviedb.org/3/trending/all/day`, {
-        headers: {
-          Authorization: token,
-        },
-      });
-      const data = await res.json();
-
-      // File path used in getting poster img
-      setConfig({
-        baseURL: result.images.secure_base_url,
-        posterSize: result.images.still_sizes[2],
-        backdropSize: result.images.backdrop_sizes[3],
-      });
-      setResult(data.results);
-    } catch (error) {
-      console.log(
-        "Error fetching trending movies and shows of day data:",
-        error
-      );
-    } finally {
-      setLoading(false);
-    }
-  }
 
   async function trendingMovieDay() {
     setLoading(true);
@@ -166,21 +129,25 @@ export default function Trending({ setId }) {
 
   function handleDayClick() {
     if (movieActive) {
+      setOnDayFocus(true);
       trendingMovieDay();
-      trendingHeaderRef.current.textContent = "TRENDING MOVIES - DAY";
+      trendingHeaderRef.current.textContent = "Trending Movies - Day";
     } else {
+      setOnDayFocus(true);
       trendingTvDay();
-      trendingHeaderRef.current.textContent = "TRENDING SHOWS - DAY";
+      trendingHeaderRef.current.textContent = "Trending Shows - Day";
     }
   }
 
   function handleWeekClick() {
     if (movieActive) {
+      setOnDayFocus(false);
       trendingMovieWeek();
-      trendingHeaderRef.current.textContent = "TRENDING MOVIES - WEEK";
+      trendingHeaderRef.current.textContent = "Trending Movies - Week";
     } else {
+      setOnDayFocus(false);
       trendingTvWeek();
-      trendingHeaderRef.current.textContent = "TRENDING SHOWS - WEEK";
+      trendingHeaderRef.current.textContent = "Trending Shows - Week";
     }
   }
 
@@ -189,10 +156,10 @@ export default function Trending({ setId }) {
     setTvActive(false);
     if (onDayFocus) {
       trendingMovieDay();
-      trendingHeaderRef.current.textContent = "TRENDING MOVIES - DAY";
+      trendingHeaderRef.current.textContent = "Trending Movies - Day";
     } else {
       trendingMovieWeek();
-      trendingHeaderRef.current.textContent = "TRENDING MOVIES - WEEK";
+      trendingHeaderRef.current.textContent = "Trending Movies - Week";
     }
   }
 
@@ -201,10 +168,10 @@ export default function Trending({ setId }) {
     setTvActive(true);
     if (onDayFocus) {
       trendingTvDay();
-      trendingHeaderRef.current.textContent = "TRENDING SHOWS - DAY";
+      trendingHeaderRef.current.textContent = "Trending Shows - Day";
     } else {
       trendingTvWeek();
-      trendingHeaderRef.current.textContent = "TRENDING SHOWS - WEEK";
+      trendingHeaderRef.current.textContent = "Trending Shows - Week";
     }
   }
 
@@ -213,13 +180,40 @@ export default function Trending({ setId }) {
     infinite: true,
     autoplay: true,
     autoplaySpeed: 5000,
-    speed: 2000,
+    speed: 1500,
     slidesToShow: 1,
     slidesToScroll: 4,
     variableWidth: true,
     rows: 1,
     pauseOnFocus: true,
     pauseOnHover: true,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          dots: false,
+        },
+      },
+    ],
   };
 
   function handleHover(i) {
@@ -231,11 +225,10 @@ export default function Trending({ setId }) {
       <div className={styles.container} ref={backgroundRef}></div>
       <div className={styles.wrapper} style={{ color: "black" }}>
         <div className={styles.top}>
-          <h2 style={{ paddingTop: "8px" }} ref={trendingHeaderRef}>
-            TRENDING - ALL
-          </h2>
+          <h2 ref={trendingHeaderRef}>Trending Movies - Day</h2>
 
           <SelectMovieTv
+            className={styles.selectClass}
             movieClick={handleMoviesBtnClick}
             tvClick={handleTvClick}
             dayClick={handleDayClick}
@@ -290,14 +283,9 @@ export default function Trending({ setId }) {
                             handleHover(i);
                           }}
                           key={el.id}
-                          className={styles.movieImg}
+                          className={styles.poster}
                           src={`${config.baseURL}${config.posterSize}${el.poster_path}`}
                           alt={el.title}
-                          style={{
-                            width: "150px",
-                            height: "auto",
-                            borderRadius: "8px",
-                          }}
                         />
                       </Badge>
                     </Link>
@@ -318,14 +306,9 @@ export default function Trending({ setId }) {
                             handleHover(i);
                           }}
                           key={el.id}
-                          className={styles.movieImg}
+                          className={styles.poster}
                           src={`${config.baseURL}${config.posterSize}${el.poster_path}`}
                           alt={el.name}
-                          style={{
-                            width: "150px",
-                            height: "auto",
-                            borderRadius: "8px",
-                          }}
                         />
                       </Badge>
                     </Link>

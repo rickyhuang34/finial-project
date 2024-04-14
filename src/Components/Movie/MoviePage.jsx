@@ -181,7 +181,7 @@ export default function MoviePage() {
       <div
         className={styles.backdrop}
         style={{
-          background: `linear-gradient(rgba(0,0,0,.5) , rgba(0,0,0,.5)) , url(${config.baseURL}${config.backdropSize}${data.backdrop_path})`,
+          backgroundImage: `linear-gradient(rgba(0,0,0,.5) , rgba(0,0,0,.5)) , url(${config.baseURL}${config.backdropSize}${data.backdrop_path})`,
         }}
       >
         <div className={styles.wrapper} key={data.id}>
@@ -226,35 +226,27 @@ export default function MoviePage() {
                       ) : null;
                     } else return null;
                   })}
+                <li>
+                  <BiSolidStar
+                    style={{ color: "yellow", verticalAlign: "-12%" }}
+                  />{" "}
+                  {Math.round(data.vote_average * 10) / 10}
+                </li>
               </ul>
 
-              <hr style={{ width: "300px" }} />
+              <hr />
             </div>
 
-            <div style={{ display: "flex", gap: "10px" }}>
-              {data.tagline ? (
-                <p className={styles.tagline}>{data.tagline}</p>
-              ) : null}
-              <p>
-                <BiSolidStar
-                  style={{ color: "yellow", verticalAlign: "-12%" }}
-                />{" "}
-                {Math.round(data.vote_average * 10) / 10}
-              </p>
-            </div>
+            {data.tagline ? (
+              <p className={styles.tagline}>{data.tagline}</p>
+            ) : null}
 
-            <div>
+            <div className={styles.overviewContainer}>
               <h3>Overview</h3>
               <p className={styles.overview}>{data.overview}</p>
             </div>
 
-            <div
-              style={{
-                display: "flex",
-                width: "fit-content",
-                gap: "20px",
-              }}
-            >
+            <div className={styles.buttons}>
               <PlayMovieTrailer data={data} trailers={trailers} />
 
               {isInWatchlist ? (

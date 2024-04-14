@@ -200,7 +200,7 @@ export default function ShowPage() {
             />
           </div>
           <div className={styles.right}>
-            <div>
+            <div className={styles.titleSection}>
               <h2 className={styles.name}>
                 {data.name}{" "}
                 <span style={{ color: "#bababa", fontSize: "0.9em" }}>
@@ -228,29 +228,28 @@ export default function ShowPage() {
                     ? data.number_of_episodes + " Episodes"
                     : data.number_of_episodes + " Episode"}
                 </li>
+                <li>
+                  <BiSolidStar
+                    style={{ color: "yellow", verticalAlign: "-12%" }}
+                  />{" "}
+                  {Math.round(data.vote_average * 10) / 10}
+                </li>
               </ul>
 
-              <hr style={{ width: "300px" }} />
+              <hr />
             </div>
 
-            <div style={{ display: "flex", gap: "10px" }}>
-              {data.tagline ? (
-                <p className={styles.tagline}>{data.tagline}</p>
-              ) : null}
-              <p>
-                <BiSolidStar
-                  style={{ color: "yellow", verticalAlign: "-12%" }}
-                />{" "}
-                {Math.round(data.vote_average * 10) / 10}
-              </p>
-            </div>
+            {data.tagline ? (
+              <p className={styles.tagline}>{data.tagline}</p>
+            ) : null}
 
-            <div>
+            <div className={styles.overviewContainer}>
               <h3>Overview</h3>
               <p className={styles.overview}>{data.overview}</p>
             </div>
 
             <div
+              className={styles.buttons}
               style={{
                 display: "flex",
                 width: "fit-content",

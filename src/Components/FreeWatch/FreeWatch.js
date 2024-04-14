@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "./FreeWatch.css";
 import axios from "axios";
+import { Link } from "react-router-dom";
+
+const apiKey = `${process.env.REACT_APP_API_KEY}`;
 
 const FreeWatch = () => {
   const [movies, setMovies] = useState([]);
@@ -8,7 +11,6 @@ const FreeWatch = () => {
 
   useEffect(() => {
     const fetchFreeContent = async () => {
-      const apiKey = "f854fbc111ab3eedf1b405c45b5f1ac2";
       let url = "";
 
       if (filter === "movie") {
@@ -56,37 +58,67 @@ const FreeWatch = () => {
       <div className="card_container">
         {movies.map((item) => (
           <div className="movie_card" key={item.id}>
-            <a href={`/movie/${item.id}`} className="link">
-              <div className="img_container">
-                <img
-                  src={
-                    item.poster_path
-                      ? `https://www.themoviedb.org/t/p/w220_and_h330_face/${item.poster_path}`
-                      : "not.jpg"
-                  }
-                  className="movieimg"
-                  alt="..."
-                />
+            {item.title ? (
+              <Link to={`/movies/${item.id}`} className="link">
+                <div className="img_container">
+                  <img
+                    src={
+                      item.poster_path
+                        ? `https://www.themoviedb.org/t/p/w220_and_h330_face/${item.poster_path}`
+                        : "not.jpg"
+                    }
+                    className="movieimg"
+                    alt="..."
+                  />
 
-                <span
-                  className="badge"
-                  style={
-                    Math.round(item.vote_average * 10) > 70
-                      ? { boxShadow: "inset 0 0 0 3px green" }
-                      : Math.round(item.vote_average * 10) > 50
-                      ? { boxShadow: "inset 0 0 0 3px yellow" }
-                      : { boxShadow: "inset 0 0 0 3px red" }
-                  }
-                >
-                  {Math.round(item.vote_average * 10)}%
-                </span>
-              </div>
+                  <span
+                    className="badge"
+                    style={
+                      Math.round(item.vote_average * 10) > 70
+                        ? { boxShadow: "inset 0 0 0 3px green" }
+                        : Math.round(item.vote_average * 10) > 50
+                        ? { boxShadow: "inset 0 0 0 3px yellow" }
+                        : { boxShadow: "inset 0 0 0 3px red" }
+                    }
+                  >
+                    {Math.round(item.vote_average * 10)}%
+                  </span>
+                </div>
 
-              <h5 className="movietitle">{item.title || item.name}</h5>
-              <p className="movietext">
-                {item.release_date || item.first_air_date}
-              </p>
-            </a>
+                <h5 className="movietitle">{item.title}</h5>
+                <p className="movietext">{item.release_date}</p>
+              </Link>
+            ) : (
+              <Link to={`/shows/${item.id}`} className="link">
+                <div className="img_container">
+                  <img
+                    src={
+                      item.poster_path
+                        ? `https://www.themoviedb.org/t/p/w220_and_h330_face/${item.poster_path}`
+                        : "not.jpg"
+                    }
+                    className="movieimg"
+                    alt="..."
+                  />
+
+                  <span
+                    className="badge"
+                    style={
+                      Math.round(item.vote_average * 10) > 70
+                        ? { boxShadow: "inset 0 0 0 3px green" }
+                        : Math.round(item.vote_average * 10) > 50
+                        ? { boxShadow: "inset 0 0 0 3px yellow" }
+                        : { boxShadow: "inset 0 0 0 3px red" }
+                    }
+                  >
+                    {Math.round(item.vote_average * 10)}%
+                  </span>
+                </div>
+
+                <h5 className="movietitle">{item.name}</h5>
+                <p className="movietext">{item.first_air_date}</p>
+              </Link>
+            )}
           </div>
         ))}
       </div>

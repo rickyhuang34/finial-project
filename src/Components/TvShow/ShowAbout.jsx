@@ -17,11 +17,7 @@ export default function ShowAbout({ data, config }) {
                       key={ppl.id}
                       src={`${defaultImg}`}
                       alt={ppl.name}
-                      style={{
-                        width: "120px",
-                        height: "180px",
-                        objectFit: "cover",
-                      }}
+                      className={styles.defaultImg}
                     />
                     <p>{ppl.name}</p>
                   </div>
@@ -31,7 +27,7 @@ export default function ShowAbout({ data, config }) {
                       key={ppl.id}
                       src={`${config.baseURL}${config.posterSize}${ppl.profile_path}`}
                       alt={ppl.name}
-                      style={{ width: "120px", height: "180px" }}
+                      className={styles.castImg}
                     />
                     <p>{ppl.name}</p>
                   </div>
@@ -46,14 +42,14 @@ export default function ShowAbout({ data, config }) {
           <strong>Status</strong>
           <br />
           {data && data.status}
-          <hr style={{ width: "150px" }} />
+          <hr />
         </li>
 
         <li key="stats-2">
           <strong>Last Air Date</strong>
           <br />
           {data && new Date(data.last_air_date).toLocaleDateString("en-US")}
-          <hr style={{ width: "150px" }} />
+          <hr />
         </li>
         {data && data.created_by && data.created_by.length > 0 ? (
           <li key="stats-3">
@@ -67,7 +63,7 @@ export default function ShowAbout({ data, config }) {
                   <br />
                 </React.Fragment>
               ))}
-            <hr style={{ width: "150px" }} />
+            <hr />
           </li>
         ) : null}
       </ul>

@@ -1,5 +1,6 @@
 import { FormControl, Select, InputLabel, MenuItem } from "@mui/material";
 import { useState } from "react";
+import styles from "./Styles/SelectMovieTv.module.css";
 
 export default function SelectMovieTv({
   movieClick,
@@ -19,8 +20,8 @@ export default function SelectMovieTv({
   };
 
   return (
-    <div>
-      <FormControl sx={{ m: 1, minWidth: 190 }}>
+    <div className={styles.formContainer}>
+      <FormControl className={styles.type}>
         <InputLabel id="select-movie-tv">Movies / TV Shows</InputLabel>
         <Select
           labelId="select-movie-tv"
@@ -39,7 +40,7 @@ export default function SelectMovieTv({
         </Select>
       </FormControl>
 
-      <FormControl sx={{ m: 1, minWidth: 130 }}>
+      <FormControl className={styles.dayWeek}>
         <InputLabel id="select-day-week">Day / Week</InputLabel>
         <Select
           labelId="select-day-week"
