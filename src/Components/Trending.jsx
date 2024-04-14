@@ -180,13 +180,40 @@ export default function Trending({ setId }) {
     infinite: true,
     autoplay: true,
     autoplaySpeed: 5000,
-    speed: 2000,
+    speed: 1500,
     slidesToShow: 1,
     slidesToScroll: 4,
     variableWidth: true,
     rows: 1,
     pauseOnFocus: true,
     pauseOnHover: true,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          dots: false,
+        },
+      },
+    ],
   };
 
   function handleHover(i) {
@@ -198,11 +225,10 @@ export default function Trending({ setId }) {
       <div className={styles.container} ref={backgroundRef}></div>
       <div className={styles.wrapper} style={{ color: "black" }}>
         <div className={styles.top}>
-          <h2 style={{ paddingTop: "8px" }} ref={trendingHeaderRef}>
-            Trending Movies - Day
-          </h2>
+          <h2 ref={trendingHeaderRef}>Trending Movies - Day</h2>
 
           <SelectMovieTv
+            className={styles.selectClass}
             movieClick={handleMoviesBtnClick}
             tvClick={handleTvClick}
             dayClick={handleDayClick}
@@ -257,14 +283,9 @@ export default function Trending({ setId }) {
                             handleHover(i);
                           }}
                           key={el.id}
-                          className={styles.movieImg}
+                          className={styles.poster}
                           src={`${config.baseURL}${config.posterSize}${el.poster_path}`}
                           alt={el.title}
-                          style={{
-                            width: "150px",
-                            height: "225px",
-                            borderRadius: "8px",
-                          }}
                         />
                       </Badge>
                     </Link>
@@ -285,14 +306,9 @@ export default function Trending({ setId }) {
                             handleHover(i);
                           }}
                           key={el.id}
-                          className={styles.movieImg}
+                          className={styles.poster}
                           src={`${config.baseURL}${config.posterSize}${el.poster_path}`}
                           alt={el.name}
-                          style={{
-                            width: "150px",
-                            height: "225px",
-                            borderRadius: "8px",
-                          }}
                         />
                       </Badge>
                     </Link>
