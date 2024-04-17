@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { Skeleton } from "@mui/material";
+import { Alert, Skeleton } from "@mui/material";
 import styles from "../Styles/MoviePage.module.css";
 import { BiCalendar, BiSolidStar, BiTimeFive } from "react-icons/bi";
 import PlayMovieTrailer from "./PlayMovieTrailer";
@@ -18,6 +18,8 @@ export default function MoviePage() {
   const [config, setConfig] = useState({});
   const [loading, setLoading] = useState(false);
   const [trailers, setTrailers] = useState([]);
+  const [alertUser, setAlertUser] = useState(false);
+
   const { id } = useParams();
 
   const { user } = useAuth();
@@ -75,7 +77,7 @@ export default function MoviePage() {
 
   const handleSaveToWatchlist = async () => {
     if (!user) {
-      alert("Login to add to watchlist");
+      setAlertUser(true);
       return;
     }
 
@@ -96,6 +98,20 @@ export default function MoviePage() {
     const isSetToWatchlist = await checkIfInWatchlist(user.uid, dataId);
     setIsInWatchlist(isSetToWatchlist);
   };
+
+  useEffect(() => {
+    let alertTimer;
+
+    if (alertUser) {
+      alertTimer = setTimeout(function () {
+        setAlertUser(false);
+      }, 3000);
+    }
+
+    return () => {
+      clearTimeout(alertTimer);
+    };
+  }, [alertUser]);
 
   useEffect(() => {
     if (!user) {
@@ -276,6 +292,19 @@ export default function MoviePage() {
             </div>
 
             <div>{alertComponent}</div>
+
+            {alertUser ? (
+              <Alert
+                severity="error"
+                style={{
+                  position: "absolute",
+                  bottom: "10px",
+                }}
+                variant="filled"
+              >
+                Login to add to watchlist
+              </Alert>
+            ) : null}
 
             <ul className={styles.genre}>
               {data.genres &&
