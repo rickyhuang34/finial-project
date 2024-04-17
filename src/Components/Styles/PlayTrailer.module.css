@@ -41,3 +41,24 @@
   color: red;
   transform: scale(1.2, 1.2);
 }
+
+/* Tablet screen size */
+@media only screen and (min-width: 601px) and (max-width: 880px) {
+  .popupTrailer {
+    width: 540px;
+    height: 340px;
+  }
+}
+
+/* Mobile screen size */
+@media only screen and (max-width: 600px) {
+  .popupTrailer {
+    width: 80%;
+    min-width: 256px;
+    height: 340px;
+  }
+
+  .closeButton {
+    right: -25px;
+  }
+}

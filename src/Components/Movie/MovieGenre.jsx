@@ -181,6 +181,19 @@ export default function MovieGenre() {
           </>
         )}
       </div>
+      {data && (
+        <p
+          style={{
+            padding: "5px",
+            width: "fit-content",
+            height: "fit-content",
+            textAlign: "center",
+            margin: "10px auto 20px",
+          }}
+        >
+          Page {page} of {data.total_pages}
+        </p>
+      )}
       <ScrollButton />
     </>
   );

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import ".//Join.css";
 
 const Join = () => {
@@ -28,7 +29,9 @@ const Join = () => {
         </div>
       </div>
 
-      <button className="sign_btn">Sign Up</button>
+      <Link to="/signup">
+        <button className="sign_btn">Sign Up</button>
+      </Link>
     </div>
   );
 };

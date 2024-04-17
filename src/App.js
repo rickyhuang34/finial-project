@@ -9,7 +9,10 @@ import MovieGenre from "./Components/Movie/MovieGenre.jsx";
 import ShowGenre from "./Components/TvShow/ShowGenre.jsx";
 import Watchlist from "./Components/Watchlist.jsx";
 import Protected from "./Components/routes/Protected.jsx";
-// import Search from "./Components/Search/Search.js";
+import Signuppage from "./Components/Signuppage/Signuppage.js";
+import Search from "./Components/Search/Search.js";
+// import PopularMovies from "./Components/Popular/PopularMovies.js";
+// import PopularShows from "./Components/Popular/PopularShows.js";
 
 function App() {
   return (
@@ -28,7 +31,7 @@ function App() {
           <Route path=":id" element={<ShowPage />} />
           <Route path="genre/:genreid" element={<ShowGenre />} />
         </Route>
-        {/* <Route path="/search" element={<Search />} /> */}
+        <Route path="/search" element={<Search />} />
         <Route
           path="/watchlist"
           element={
@@ -37,6 +40,9 @@ function App() {
             </Protected>
           }
         />
+        <Route path="/signup" element={<Signuppage />} />
+        {/* <Route path="/popularM" element={<PopularMovies />} />
+        <Route path="/popularS" element={<PopularShows />} /> */}
       </Routes>
     </>
   );
