@@ -1,15 +1,19 @@
 import React from "react";
 import "./Footer.css";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
     <div className="footer_container">
-      <div className="footer_logo_container">
+      <div className="footer_logo_join_container">
         <img src="/footer_logo.png" alt="logo" className="logo" />
+        <Link to="/signup">
+          <button className="join_button">JOIN COMMUNITY</button>
+        </Link>
       </div>
-      <div className="join_container">
-        <button className="join_button">JOIN COMMUNITY</button>
-      </div>
+      {/* <div className="join_container">
+        
+      </div> */}
       <div className="footer_links">
         <div className="footer_column">
           <h4 className="footer_heading">THE BASICS</h4>

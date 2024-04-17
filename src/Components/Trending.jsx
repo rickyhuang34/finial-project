@@ -222,7 +222,10 @@ export default function Trending({ setId }) {
 
   return (
     <>
-      <div className={styles.container} ref={backgroundRef}></div>
+      <div className={styles.container} ref={backgroundRef}>
+        <h1>Welcome</h1>
+        <p>Millions of Movies and TV Shows to discover. Explore now.</p>
+      </div>
       <div className={styles.wrapper} style={{ color: "black" }}>
         <div className={styles.top}>
           <h2 ref={trendingHeaderRef}>Trending Movies - Day</h2>
@@ -245,7 +248,7 @@ export default function Trending({ setId }) {
               sx={{ bgcolor: "grey.900" }}
             />
             <Skeleton
-              variant="rounded"
+              variant="overlay"
               width={150}
               height={220}
               sx={{ bgcolor: "grey.900" }}

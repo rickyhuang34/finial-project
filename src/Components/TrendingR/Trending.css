@@ -1,0 +1,18 @@
+.trending {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  overflow-x: auto;
+  margin: 10px 0;
+}
+
+.trending a {
+  text-decoration: none;
+  color: white;
+}
+
+@media (max-width: 550px) {
+  .trending {
+    overflow-x: scroll;
+  }
+}

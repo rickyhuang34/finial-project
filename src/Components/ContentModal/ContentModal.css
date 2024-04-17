@@ -1,0 +1,108 @@
+/* @import url("https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@1,600&display=swap") */
+
+.modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.paper {
+  width: 90%;
+  height: 80%;
+  background-color: #39445a;
+  border: 1px solid #282c34;
+  border-radius: 10px;
+  color: white;
+  /* box-shadow: ; */
+  /* padding: ; */
+}
+
+.ContentModal_landscape {
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+.Content_portrait {
+  display: none;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+.tagline {
+  padding-bottom: 10px;
+  align-items: center;
+}
+
+.ContentModal {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+
+.ContentModal ::-webkit-scrollbar {
+  display: none;
+}
+
+.ContentModal_about {
+  padding: 10px;
+  width: 95%;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  font-family: "Times New Roman", Times, serif;
+  justify-content: space-evenly;
+  font-weight: 300;
+}
+
+.ContentModal_title {
+  height: 10%;
+  font-size: 5vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ContentModal_description {
+  display: flex;
+  height: 40%;
+  overflow-y: scroll;
+  padding: 15px;
+  border-radius: 10px;
+  scrollbar-width: thin;
+  box-shadow: inset 0 0 5px #000000;
+  text-align: justify;
+}
+
+.ContentModal_description ::-webkit-scrollbar {
+  display: none;
+}
+
+@media (min-width: 835px) {
+  .ContentModal_landscape {
+    display: none;
+  }
+  .Content_portrait {
+    display: flex;
+    width: 38%;
+  }
+  .ContentModal {
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 10px 0;
+  }
+  .ContentModal_about {
+    width: 58%;
+    padding: 0;
+    height: 100%;
+  }
+  .ContentModal_title {
+    font-size: 3.5vw;
+  }
+  .ContentModal_description {
+    font-size: 22px;
+  }
+}

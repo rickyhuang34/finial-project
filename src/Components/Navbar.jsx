@@ -62,9 +62,9 @@ export default function Navbar() {
             <li>
               <Link to="/shows">TV Shows</Link>
             </li>
-            {/* <li>
-            <Link to="/search">Search</Link>
-          </li> */}
+            <li>
+              <Link to="/search">Search</Link>
+            </li>
           </ul>
           {user && (
             <>
@@ -145,6 +145,11 @@ export default function Navbar() {
               <li>
                 <Link to="/shows" onClick={handleMenuClose}>
                   TV Shows
+                </Link>
+              </li>
+              <li>
+                <Link to="/search" onClick={handleMenuClose}>
+                  Search
                 </Link>
               </li>
             </ul>

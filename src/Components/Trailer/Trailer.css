@@ -39,9 +39,10 @@
   margin: 0;
 }
 .trailer_card_container {
+  padding: 5px;
   display: flex;
   overflow-x: auto;
-  scrollbar-width: none; /* Firefox */
+  scrollbar-width: thin; /* Firefox */
   -ms-overflow-style: none; /* Internet Explorer 10+ */
 }
 

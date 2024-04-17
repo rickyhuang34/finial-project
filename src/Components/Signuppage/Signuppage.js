@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./Signuppage.css";
 const Signuppage = () => {
   return (
@@ -45,7 +46,9 @@ const Signuppage = () => {
             and agree to the TMDB terms of use and privacy policy.
           </p>
           <button className="pagesign_btn">Sign Up</button>
-          <button className="cancel_btn">Cancel</button>
+          <Link to="/">
+            <button className="cancel_btn">Cancel</button>
+          </Link>
         </form>
       </div>
     </div>

@@ -39,6 +39,7 @@
   padding: 0 25px;
   border-radius: 18px;
   font-size: 18px;
+  cursor: pointer;
 }
 
 .active {
@@ -47,9 +48,10 @@
 }
 
 .card_container {
+  padding: 5px 5px 10px 5px;
   display: flex;
   overflow-x: auto;
-  scrollbar-width: none; /*Firefox */
+  scrollbar-width: thin; /*Firefox */
   -ms-overflow-style: none; /*Internet Explorer 10+ */
 }
 
@@ -63,6 +65,10 @@
   margin-right: 20px; /* Add some margin between cards */
   cursor: pointer;
   /* background: #000; */
+}
+
+.movie_card a {
+  text-decoration: none;
 }
 
 .img_container {

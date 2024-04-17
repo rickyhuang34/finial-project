@@ -66,7 +66,6 @@ export default function MoviePage() {
 
       let youtubeVids = Object.values(result.videos.results);
       setTrailers(youtubeVids);
-      // console.log(result);
     } catch (error) {
       console.log("Get movie error", error);
     } finally {
