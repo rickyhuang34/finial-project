@@ -11,8 +11,6 @@ import Watchlist from "./Components/Watchlist.jsx";
 import Protected from "./Components/routes/Protected.jsx";
 import Signuppage from "./Components/Signuppage/Signuppage.js";
 import Search from "./Components/Search/Search.js";
-// import PopularMovies from "./Components/Popular/PopularMovies.js";
-// import PopularShows from "./Components/Popular/PopularShows.js";
 
 function App() {
   return (
@@ -41,8 +39,6 @@ function App() {
           }
         />
         <Route path="/signup" element={<Signuppage />} />
-        {/* <Route path="/popularM" element={<PopularMovies />} />
-        <Route path="/popularS" element={<PopularShows />} /> */}
       </Routes>
     </>
   );

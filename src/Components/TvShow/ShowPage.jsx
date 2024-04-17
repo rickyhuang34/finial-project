@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { Skeleton } from "@mui/material";
+import { Alert, Skeleton } from "@mui/material";
 import styles from "../Styles/ShowPage.module.css";
 import { PiTelevisionSimpleDuotone } from "react-icons/pi";
 import { BiCalendar, BiSolidStar } from "react-icons/bi";
@@ -20,6 +20,7 @@ export default function ShowPage() {
   const [config, setConfig] = useState({});
   const [trailers, setTrailers] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [alertUser, setAlertUser] = useState(false);
 
   const { id } = useParams();
 
@@ -79,7 +80,7 @@ export default function ShowPage() {
 
   const handleSaveToWatchlist = async () => {
     if (!user) {
-      alert("Login to add to watchlist");
+      setAlertUser(true);
       return;
     }
 
@@ -100,6 +101,20 @@ export default function ShowPage() {
     const isSetToWatchlist = await checkIfInWatchlist(user.uid, dataId);
     setIsInWatchlist(isSetToWatchlist);
   };
+
+  useEffect(() => {
+    let alertTimer;
+
+    if (alertUser) {
+      alertTimer = setTimeout(function () {
+        setAlertUser(false);
+      }, 3000);
+    }
+
+    return () => {
+      clearTimeout(alertTimer);
+    };
+  }, [alertUser]);
 
   useEffect(() => {
     if (!user) {
@@ -286,6 +301,19 @@ export default function ShowPage() {
             </div>
 
             <div>{alertComponent}</div>
+
+            {alertUser ? (
+              <Alert
+                severity="error"
+                style={{
+                  position: "absolute",
+                  bottom: "10px",
+                }}
+                variant="filled"
+              >
+                Login to add to watchlist
+              </Alert>
+            ) : null}
 
             <ul className={styles.genre}>
               {data.genres &&
