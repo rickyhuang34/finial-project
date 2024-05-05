@@ -48,7 +48,7 @@ const Gallery = ({ id, media_type }) => {
 
   useEffect(() => {
     fetchCredits();
-  }, []);
+  }, [fetchCredits]);
 
   return (
     <AliceCarousel

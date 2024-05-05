@@ -4,8 +4,8 @@ import Backdrop from "@mui/material/Backdrop";
 import Fade from "@mui/material/Fade";
 import axios from "axios";
 import { img_500, unavailable, unavailableLandscape } from "../Config/Config";
-import Button from "@mui/material/Button";
-import YouTubeIcon from "@mui/icons-material/YouTube";
+// import Button from "@mui/material/Button";
+// import YouTubeIcon from "@mui/icons-material/YouTube";
 import "./ContentModal.css";
 import Gallery from "./Carousel/Carousel";
 
@@ -44,7 +44,7 @@ export default function ContentModal({ children, media_type, id }) {
   useEffect(() => {
     fetchData();
     fetchVideo();
-  }, []);
+  }, [fetchData,fetchVideo]);
 
   return (
     <>
