@@ -15,12 +15,15 @@ export default function Home() {
       <Trending />
       <Trailer />
       <FreeWatch />
+
       <Container>
         <Trending1 />
         <PopularMovies />
         <PopularShows />
       </Container>
+
       <AnimatedCarousel />
+      
       <Join />
       <Footer />
     </>
